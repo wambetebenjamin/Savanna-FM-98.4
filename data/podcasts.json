@@ -1,0 +1,62 @@
+[
+  {
+    "id": "morning-after-dark",
+    "show": "THE MORNING BLEND",
+    "title": "Nairobi wakes up: the stories everyone is talking about",
+    "date": "OCT 01, 2026",
+    "duration": "38 MIN",
+    "episode": "EP 042",
+    "audioUrl": null,
+    "artwork": "sunrise"
+  },
+  {
+    "id": "sound-of-here",
+    "show": "SOUND OF HERE",
+    "title": "Amapiano's East African moment with DJ Soko",
+    "date": "SEP 29, 2026",
+    "duration": "46 MIN",
+    "episode": "EP 018",
+    "audioUrl": null,
+    "artwork": "orange"
+  },
+  {
+    "id": "the-round-up",
+    "show": "THE ROUND UP",
+    "title": "Harambee Stars, home ground, and what comes next",
+    "date": "SEP 27, 2026",
+    "duration": "29 MIN",
+    "episode": "EP 067",
+    "audioUrl": null,
+    "artwork": "green"
+  },
+  {
+    "id": "after-hours-001",
+    "show": "AFTER HOURS",
+    "title": "For the long way home: a late-night soul session",
+    "date": "SEP 25, 2026",
+    "duration": "52 MIN",
+    "episode": "EP 031",
+    "audioUrl": null,
+    "artwork": "purple"
+  },
+  {
+    "id": "creative-voices",
+    "show": "THE CREATIVE CLASS",
+    "title": "Building a career in music, on your own terms",
+    "date": "SEP 22, 2026",
+    "duration": "34 MIN",
+    "episode": "EP 011",
+    "audioUrl": null,
+    "artwork": "blue"
+  },
+  {
+    "id": "weekend-lounge",
+    "show": "WEEKEND LOUNGE",
+    "title": "Five tracks that sound like a Nairobi Sunday",
+    "date": "SEP 20, 2026",
+    "duration": "41 MIN",
+    "episode": "EP 055",
+    "audioUrl": null,
+    "artwork": "pink"
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "kenya-sound",
+    "category": "MUSIC",
+    "label": "NEW MUSIC",
+    "title": "Kenya's next wave is making its own rules",
+    "summary": "A new generation of producers is blending gengetone, amapiano, and hometown sounds into something unmistakably ours.",
+    "date": "OCT 02, 2026",
+    "readTime": "4 MIN READ",
+    "image": "/images/voice-red-dress.jpg",
+    "tone": "music"
+  },
+  {
+    "id": "city-pulse",
+    "category": "NAIROBI",
+    "label": "CITY PULSE",
+    "title": "The neighbourhood spots giving Nairobi its rhythm",
+    "summary": "From Kilimani to Eastlands, independent spaces are building community one sound system at a time.",
+    "date": "OCT 01, 2026",
+    "readTime": "5 MIN READ",
+    "image": "/images/voice-studio-female.jpg",
+    "tone": "city"
+  },
+  {
+    "id": "sport-weekend",
+    "category": "SPORT",
+    "label": "SPORTS DESK",
+    "title": "The fixtures, faces, and stories to watch this weekend",
+    "summary": "Our sports desk picks out the local match-ups set to bring the noise this weekend.",
+    "date": "SEP 30, 2026",
+    "readTime": "3 MIN READ",
+    "image": "/images/nairobi-crowd.jpg",
+    "tone": "sport"
+  },
+  {
+    "id": "screen-scene",
+    "category": "CULTURE",
+    "label": "CULTURE",
+    "title": "Made in Nairobi: the creators moving the culture forward",
+    "summary": "Meet the artists, filmmakers, and tastemakers changing how the world hears East Africa.",
+    "date": "SEP 29, 2026",
+    "readTime": "6 MIN READ",
+    "image": "/images/voice-headwrap.jpg",
+    "tone": "culture"
+  }
+]
