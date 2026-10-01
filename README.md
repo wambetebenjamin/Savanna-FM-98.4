@@ -59,3 +59,7 @@ npm run build
 ```
 
 The media-kit download is an indicative text rate card; confirm inventory and pricing with the station before use. A lightweight service worker caches the station shell for offline revisit; live streams and API responses stay network-only.
+
+## Security note
+
+This build uses Next.js 14.2.35 to match the requested stack. Current `npm audit --omit=dev` data still flags a critical Next.js advisory; npm lists the fix on a major Next.js 16 upgrade. Keep the framework version aligned with the requested prototype, but schedule that major upgrade (and re-run all checks) before production deployment.
