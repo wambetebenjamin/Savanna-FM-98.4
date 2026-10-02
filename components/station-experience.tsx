@@ -69,23 +69,12 @@ const miniWaveHeights = Array.from({ length: 28 }, (_, index) => 20 + ((index * 
 function Reveal({
   children,
   className,
-  delay = 0,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
 }) {
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.12 }}
-      transition={{ duration: 0.58, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 function Eyebrow({ children, number }: { children: React.ReactNode; number?: string }) {
@@ -103,6 +92,25 @@ function Waveform({ compact = false, animated = false }: { compact?: boolean; an
     <span className={`waveform ${compact ? 'waveform--compact' : ''} ${animated ? 'waveform--animated' : ''}`} aria-hidden="true">
       {bars.map((height, index) => (
         <i key={index} style={{ '--bar-height': `${height}%`, '--bar-delay': `${(index % 11) * -0.11}s` } as React.CSSProperties} />
+      ))}
+    </span>
+  );
+}
+
+function AnimatedLetters({ text, accent = false, delay = 0 }: { text: string; accent?: boolean; delay?: number }) {
+  return (
+    <span className={`kinetic-word ${accent ? 'kinetic-word--accent' : ''}`} aria-label={text}>
+      {Array.from(text).map((character, index) => (
+        <motion.span
+          className="kinetic-letter"
+          aria-hidden="true"
+          key={`${character}-${index}`}
+          initial={{ opacity: 0, y: 34, rotateX: -70 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{ duration: .58, delay: delay + index * .025, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {character === ' ' ? '\u00a0' : character}
+        </motion.span>
       ))}
     </span>
   );
@@ -480,14 +488,10 @@ export default function StationExperience() {
               <span className="live-pill"><i /> ON AIR · NAIROBI</span>
               <span className="hero__coords">1°17′S&nbsp;&nbsp; 36°49′E</span>
             </div>
-            <motion.h1
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-            >
-              THE HEARTBEAT<br />
-              OF <span>EAST AFRICA.</span>
-            </motion.h1>
+            <h1 className="kinetic-headline">
+              <AnimatedLetters text="THE HEARTBEAT" delay={.08} /><br />
+              <AnimatedLetters text="OF " delay={.26} /><AnimatedLetters text="EAST AFRICA." accent delay={.31} />
+            </h1>
             <p className="hero__intro">Your city. Your sound. Your station.<br /><strong>Savanna FM 98.4</strong>, live from Nairobi.</p>
             <div className="hero__buttons">
               <button className="button button--orange button--hero" type="button" onClick={toggleLive}>
