@@ -1800,3 +1800,138 @@ body {
 .track-art__sun { display: none; }
 .chart-row:hover .track-art__image { filter: saturate(1.04) contrast(1.02); transform: scale(1.08); }
 .track-art__image { transition: transform .4s ease, filter .3s ease; }
+
+/* Faded editorial photography creates atmospheric section silhouettes. */
+.section-backdrop {
+  position: absolute !important;
+  inset: 0 50% !important;
+  z-index: 0 !important;
+  width: 100vw;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+.section-backdrop img {
+  object-fit: cover;
+  filter: grayscale(.28) saturate(.72) contrast(1.08);
+  opacity: .17;
+  transform: scale(1.025);
+}
+.section-backdrop > span {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(9,11,10,.99) 0%, rgba(9,12,10,.93) 36%, rgba(9,12,10,.72) 72%, rgba(9,11,10,.9) 100%),
+    linear-gradient(180deg, rgba(9,11,10,.96), transparent 24%, transparent 72%, rgba(9,11,10,.97));
+}
+.section > :not(.section-backdrop):not(.immersive-radio-world):not(.liquid-morph) { position: relative; z-index: 2; }
+.section--presenters .section-backdrop img, .section--charts .section-backdrop img { opacity: .2; }
+.section--podcasts .section-backdrop img, .section--events .section-backdrop img { opacity: .18; }
+
+/* Readability pass: no essential interface copy is treated as fine print. */
+body { font-size: 16px; }
+.main-nav a { font-size: 13px; }
+.header-live { font-size: 11px; }
+.brand__frequency { font-size: 10px; }
+.eyebrow { font-size: 11px; }
+.eyebrow__number { font-size: 13px; }
+.section-heading__aside p { font-size: 15px; line-height: 1.75; }
+.text-link, .button { font-size: 12px; }
+.hero__topline, .live-pill { font-size: 11px; }
+.hero__coords { font-size: 10px; }
+.hero__intro { font-size: 16px; }
+.hero__listenership strong { font-size: 13px; }
+.hero__listenership > div:nth-child(2) > span { font-size: 11px; }
+.hero-now-card__copy > span { font-size: 10px; }
+.hero-now-card__copy strong { font-size: 17px; }
+.hero-now-card__copy small { font-size: 11px; }
+.hero__scroll, .hero__edition { font-size: 10px; }
+.frequency-strip__label, .frequency-strip__list, .frequency-strip__right { font-size: 11px; }
+
+.show-card__tag { font-size: 10px; }
+.show-card__index { font-size: 12px; }
+.show-card__time { font-size: 11px; }
+.show-card__glass p { font-size: 13px; line-height: 1.62; }
+.show-card__bottom { font-size: 10px; }
+.schedule-note { font-size: 12px; }
+.presenter-card__label { font-size: 10px; }
+.presenter-card__number { font-size: 12px; }
+.presenter-card__reveal > span:first-child { font-size: 10px; }
+.presenter-card__reveal strong { font-size: 14px; }
+.presenter-card__reveal b, .presenter-card__reveal small { font-size: 12px; }
+.presenter-card__details h3 { font-size: 19px; }
+.presenter-card__details p { font-size: 12px; }
+.presenter-footnote { font-size: 11px; }
+
+.news-card__category { font-size: 10px; }
+.news-card__number { font-size: 12px; }
+.news-card__meta { font-size: 11px; }
+.news-card__body h3 { font-size: 21px; }
+.news-card__summary { font-size: 13px; line-height: 1.65; }
+.news-card--more small, .section-bottom-link { font-size: 10px; }
+.episode-card__episode, .episode-card__show { font-size: 10px; }
+.episode-card__copy h3 { font-size: 18px; }
+.episode-card__meta { font-size: 11px; }
+.podcast-cta > span, .podcast-cta a { font-size: 11px; }
+
+.chart-date { font-size: 10px; }
+.chart-row__song strong { font-size: 14px; }
+.chart-row__song small { font-size: 11px; }
+.chart-row__weeks { font-size: 13px; }
+.chart-row__weeks small, .chart-row__trend, .chart-row__trend small { font-size: 10px; }
+.chart-feature__copy > span { font-size: 10px; }
+.chart-feature__copy p { font-size: 13px; }
+.chart-feature__copy .text-link, .chart-feature__foot { font-size: 10px; }
+.event-card__tag { font-size: 9px; }
+.event-card__time { font-size: 10px; }
+.event-card__copy h3 { font-size: 22px; }
+.event-card__copy p { font-size: 12px; }
+.event-card__ticket { font-size: 10px; }
+.events-note { font-size: 11px; }
+
+.advertise__copy > p { font-size: 15px; }
+.advertise__buttons .button { font-size: 11px; }
+.advertise__contact { font-size: 12px; }
+.social-platform strong, .instagram-wall__head strong { font-size: 11px; }
+.social-platform small, .instagram-wall__head > a { font-size: 10px; }
+.social-feed-card__quote p { font-size: clamp(21px, 2.1vw, 26px); }
+.social-feed-card__quote strong, .social-feed-card__footer { font-size: 10px; }
+.instagram-tile span { font-size: 9px; }
+
+.newsletter__copy .eyebrow { font-size: 10px; }
+.newsletter__copy h2 { font-size: 30px; }
+.newsletter__copy p { font-size: 12px; }
+.newsletter__form input { font-size: 12px; }
+.newsletter__form button, .newsletter__form small { font-size: 10px; }
+.site-footer__brand > p { font-size: 10px; }
+.footer-frequency span, .site-footer__label { font-size: 10px; }
+.site-footer__column > a, .site-footer__column > button { font-size: 12px; }
+.site-footer__location, .site-footer__bottom { font-size: 10px; }
+
+.player-kicker { font-size: 9px; }
+.player-track__copy strong { font-size: 14px; }
+.player-track__copy small { font-size: 10px; }
+.player-status, .player-request { font-size: 10px; }
+.whatsapp-float__tooltip { font-size: 11px; }
+.request-modal__eyebrow { font-size: 10px; }
+.request-modal > p { font-size: 13px; }
+.request-form label, .request-form > small { font-size: 10px; }
+.request-form input { font-size: 12px; }
+.toast { font-size: 11px; }
+
+@media (max-width: 700px) {
+  body { font-size: 15px; }
+  .main-nav a, .main-nav__home { font-size: 13px; }
+  .section-heading__aside p { font-size: 14px; }
+  .hero__intro { font-size: 14px; }
+  .show-card__glass p { font-size: 11px; }
+  .show-card__bottom, .presenter-card__label, .episode-card__meta { font-size: 9px; }
+  .presenter-card__details h3 { font-size: 15px; }
+  .presenter-card__details p, .news-card__meta { font-size: 10px; }
+  .news-card__summary { font-size: 12px; }
+  .episode-card__copy h3 { font-size: 15px; }
+  .event-card__copy h3 { font-size: 18px; }
+  .event-card__copy p { font-size: 10px; }
+  .section-backdrop img { opacity: .13; }
+  .site-footer__column > a, .site-footer__column > button { font-size: 11px; }
+}

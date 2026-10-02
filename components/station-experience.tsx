@@ -209,6 +209,15 @@ function AppLogo({ compact = false }: { compact?: boolean }) {
   );
 }
 
+function SectionBackdrop({ src, position = 'center' }: { src: string; position?: string }) {
+  return (
+    <div className="section-backdrop" aria-hidden="true">
+      <Image src={src} alt="" fill sizes="100vw" style={{ objectPosition: position }} />
+      <span />
+    </div>
+  );
+}
+
 export default function StationExperience() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const newsRailRef = useRef<HTMLDivElement>(null);
@@ -558,6 +567,7 @@ export default function StationExperience() {
       </section>
 
       <section className="section section--shows page-shell" id="shows">
+        <SectionBackdrop src="/images/voice-studio-female.jpg" position="80% 35%" />
         <Reveal>
           <div className="section-heading section-heading--split">
             <div>
@@ -591,6 +601,7 @@ export default function StationExperience() {
       </section>
 
       <section className="section section--presenters" id="presenters">
+        <SectionBackdrop src="/images/podcast-host.jpg" position="84% center" />
         <div className="page-shell">
           <Reveal>
             <div className="section-heading section-heading--split section-heading--presenters">
@@ -630,6 +641,7 @@ export default function StationExperience() {
       </section>
 
       <section className="section section--news page-shell" id="news">
+        <SectionBackdrop src="/images/nairobi-crowd.jpg" position="center 45%" />
         <Reveal>
           <div className="section-heading section-heading--split">
             <div>
@@ -653,6 +665,7 @@ export default function StationExperience() {
       </section>
 
       <section className="section section--podcasts section--webgl section--morphing" id="podcasts">
+        <SectionBackdrop src="/images/studio-headphones.jpg" position="76% center" />
         <LiquidMorph tone="sage" className="liquid-morph--section" />
         <ImmersiveRadioEnvironment variant="archive" />
         <div className="page-shell">
@@ -680,6 +693,7 @@ export default function StationExperience() {
       </section>
 
       <section className="section section--charts section--morphing page-shell" id="charts">
+        <SectionBackdrop src="/images/cultural-musician.jpg" position="82% center" />
         <LiquidMorph tone="cream" className="liquid-morph--section liquid-morph--reverse" />
         <Reveal>
           <div className="section-heading section-heading--split">
@@ -717,6 +731,7 @@ export default function StationExperience() {
       </section>
 
       <section className="section section--events" id="events">
+        <SectionBackdrop src="/images/african-drummers.jpg" position="78% center" />
         <div className="page-shell">
           <Reveal>
             <div className="section-heading section-heading--split">
@@ -769,6 +784,7 @@ export default function StationExperience() {
       </section>
 
       <section className="section section--social page-shell" id="social">
+        <SectionBackdrop src="/images/listener-headphones.jpg" position="80% center" />
         <Reveal>
           <div className="section-heading section-heading--split">
             <div>
