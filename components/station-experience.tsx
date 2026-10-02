@@ -133,14 +133,22 @@ function AnimatedCount({ value }: { value: number }) {
   return <span>{count.toLocaleString('en-KE')}</span>;
 }
 
-function TrackArtwork({ tone, label }: { tone: string; label: string }) {
+function TrackArtwork({ tone, label, image }: { tone: string; label: string; image: string }) {
   return (
     <div className={`track-art track-art--${tone}`} aria-hidden="true">
-      <span className="track-art__sun" />
+      <Image className="track-art__image" src={image} alt="" fill sizes="45px" />
+      <span className="track-art__shade" />
       <span className="track-art__type">{label}</span>
-      <Music2 size={19} strokeWidth={1.6} />
+      <Music2 size={16} strokeWidth={1.8} />
     </div>
   );
+}
+
+function NewsCategoryIcon({ tone }: { tone: string }) {
+  if (tone === 'music') return <Music2 size={11} />;
+  if (tone === 'city') return <MapPin size={11} />;
+  if (tone === 'sport') return <TrendingUp size={11} />;
+  return <Sparkles size={11} />;
 }
 
 function NewsCard({ item, index }: { item: NewsItem; index: number }) {
@@ -148,7 +156,7 @@ function NewsCard({ item, index }: { item: NewsItem; index: number }) {
     <article className="news-card">
       <a className={`news-card__image news-card__image--${item.tone}`} href="#newsletter" aria-label={`Read: ${item.title}`}>
         <Image src={item.image} alt="" fill sizes="(max-width: 700px) 75vw, 315px" loading="lazy" />
-        <span className="news-card__category">{item.label}</span>
+        <span className="news-card__category"><NewsCategoryIcon tone={item.tone} /> {item.label}</span>
         <span className="news-card__number">0{index + 1}</span>
         <span className="news-card__open"><ArrowUpRight size={17} /></span>
       </a>
@@ -173,6 +181,8 @@ function EpisodeCard({
   return (
     <article className={`episode-card ${isActive ? 'episode-card--active' : ''}`}>
       <div className={`episode-card__art episode-card__art--${episode.artwork}`}>
+        <Image className="episode-card__image" src={episode.image} alt="" fill sizes="(max-width: 700px) 50vw, 33vw" loading="lazy" />
+        <div className="episode-card__art-shade" />
         <div className="episode-card__art-ring" />
         <span className="episode-card__episode">{episode.episode}</span>
         <div className="episode-card__art-title">SAVANNA<br /><em>sounds</em></div>
@@ -688,7 +698,7 @@ export default function StationExperience() {
             {chartTracks.map((track, index) => (
               <motion.div className="chart-row" key={track.rank} role="listitem" initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.035 }}>
                 <span className={`chart-row__rank ${index < 3 ? 'chart-row__rank--top' : ''}`}>{track.rank}</span>
-                <TrackArtwork tone={track.art} label={track.artist.split(' ').map((part) => part[0]).join('').slice(0, 2)} />
+                <TrackArtwork tone={track.art} image={track.image} label={track.artist.split(' ').map((part) => part[0]).join('').slice(0, 2)} />
                 <span className="chart-row__song"><strong>{track.title}</strong><small>{track.artist}</small></span>
                 <span className="chart-row__weeks">{track.weeks} <small>WKS</small></span>
                 <span className={`chart-row__trend chart-row__trend--${track.trend}`} aria-label={track.trend === 'up' ? 'Trending up' : track.trend === 'down' ? 'Trending down' : 'No change'}>

@@ -35,6 +35,7 @@ export type PodcastEpisode = {
   episode: string;
   audioUrl: string | null;
   artwork: string;
+  image: string;
 };
 
 export const schedule = scheduleData as ScheduleItem[];
@@ -59,7 +60,7 @@ export const presenters = [
     show: "The Midday Mix",
     days: "MON TO FRI",
     time: "10:00 TO 14:00",
-    image: "/images/voice-studio-female.jpg",
+    image: "/images/podcast-host.jpg",
     imageAlt: "Podcast host wearing headphones in a recording studio",
     specialty: "THE TASTE MAKER",
     instagram: "https://www.instagram.com/",
@@ -92,7 +93,7 @@ export const presenters = [
     show: "The Round Up",
     days: "SATURDAY",
     time: "12:00 TO 15:00",
-    image: "/images/voice-studio-male.jpg",
+    image: "/images/kora-musician.jpg",
     imageAlt: "Host recording a podcast in a sound treated studio",
     specialty: "THE BIG DEBATER",
     instagram: "https://www.instagram.com/",
@@ -103,7 +104,7 @@ export const presenters = [
     show: "Weekend Lounge",
     days: "SAT TO SUN",
     time: "15:00 TO 19:00",
-    image: "/images/voice-headwrap.jpg",
+    image: "/images/african-drummers.jpg",
     imageAlt: "Vocalist performing in a studio with a microphone",
     specialty: "THE GOOD VIBE CURATOR",
     instagram: "https://www.instagram.com/",
@@ -111,16 +112,16 @@ export const presenters = [
 ];
 
 export const chartTracks = [
-  { rank: "01", artist: "Bien", title: "Ma Cherie", weeks: 4, trend: "up", art: "sunset", rotation: "NEW ENTRY" },
-  { rank: "02", artist: "Njerae", title: "Aki Sioni", weeks: 6, trend: "up", art: "violet", rotation: "+3" },
-  { rank: "03", artist: "Wakadinali", title: "Extra Pressure", weeks: 8, trend: "same", art: "red", rotation: "STEADY" },
-  { rank: "04", artist: "Bensoul", title: "Nairobi", weeks: 3, trend: "up", art: "blue", rotation: "+2" },
-  { rank: "05", artist: "Nikita Kering'", title: "Ex", weeks: 5, trend: "down", art: "pink", rotation: "DOWN 1" },
-  { rank: "06", artist: "Sauti Sol", title: "Suzanna", weeks: 10, trend: "same", art: "gold", rotation: "STEADY" },
-  { rank: "07", artist: "Karun", title: "Glow Up", weeks: 2, trend: "up", art: "green", rotation: "NEW" },
-  { rank: "08", artist: "Mutoriah", title: "Kiss Me", weeks: 7, trend: "down", art: "lilac", rotation: "DOWN 2" },
-  { rank: "09", artist: "Xenia Manasseh", title: "Love / Hate", weeks: 4, trend: "up", art: "orange", rotation: "+1" },
-  { rank: "10", artist: "Muthaka", title: "Pole Pole", weeks: 1, trend: "up", art: "silver", rotation: "NEW" },
+  { rank: "01", artist: "Bien", title: "Ma Cherie", weeks: 4, trend: "up", art: "sunset", rotation: "NEW ENTRY", image: "/images/cultural-musician.jpg" },
+  { rank: "02", artist: "Njerae", title: "Aki Sioni", weeks: 6, trend: "up", art: "violet", rotation: "+3", image: "/images/voice-studio-female.jpg" },
+  { rank: "03", artist: "Wakadinali", title: "Extra Pressure", weeks: 8, trend: "same", art: "red", rotation: "STEADY", image: "/images/african-drummers.jpg" },
+  { rank: "04", artist: "Bensoul", title: "Nairobi", weeks: 3, trend: "up", art: "blue", rotation: "+2", image: "/images/podcast-host.jpg" },
+  { rank: "05", artist: "Nikita Kering'", title: "Ex", weeks: 5, trend: "down", art: "pink", rotation: "DOWN 1", image: "/images/voice-red-dress.jpg" },
+  { rank: "06", artist: "Sauti Sol", title: "Suzanna", weeks: 10, trend: "same", art: "gold", rotation: "STEADY", image: "/images/kora-musician.jpg" },
+  { rank: "07", artist: "Karun", title: "Glow Up", weeks: 2, trend: "up", art: "green", rotation: "NEW", image: "/images/voice-headwrap.jpg" },
+  { rank: "08", artist: "Mutoriah", title: "Kiss Me", weeks: 7, trend: "down", art: "lilac", rotation: "DOWN 2", image: "/images/traditional-drum.jpg" },
+  { rank: "09", artist: "Xenia Manasseh", title: "Love / Hate", weeks: 4, trend: "up", art: "orange", rotation: "+1", image: "/images/colorful-bongos.jpg" },
+  { rank: "10", artist: "Muthaka", title: "Pole Pole", weeks: 1, trend: "up", art: "silver", rotation: "NEW", image: "/images/listener-headphones.jpg" },
 ];
 
 export const events = [
@@ -143,8 +144,8 @@ export const events = [
     title: "City Sounds: After Dark",
     place: "Msa Road Warehouse, Nairobi",
     time: "GATES 8:00 PM",
-    image: "/images/voice-red-dress.jpg",
-    imageAlt: "Singer performing under dramatic studio lighting",
+    image: "/images/colorful-bongos.jpg",
+    imageAlt: "Colorful drums under dramatic studio lighting",
   },
   {
     id: "savanna-picnic",
@@ -154,8 +155,8 @@ export const events = [
     title: "The Savanna Picnic",
     place: "Karura Forest, Nairobi",
     time: "GATES 11:00 AM",
-    image: "/images/voice-headwrap.jpg",
-    imageAlt: "Vocalist with a microphone at a performance",
+    image: "/images/traditional-drum.jpg",
+    imageAlt: "Traditional drum at a live performance",
   },
 ];
 

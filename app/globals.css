@@ -1783,3 +1783,20 @@ body {
   .button, .header-live, .text-link, .rail-controls button, .episode-card__play,
   .event-card__ticket, .player-main-button, .player-request { transform: none !important; }
 }
+
+/* Real imagery replaces abstract media placeholders */
+.episode-card__image { z-index: 0; object-fit: cover; filter: saturate(.78) contrast(1.05); transition: transform .75s cubic-bezier(.2,.8,.2,1), filter .4s ease; }
+.episode-card__art-shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(120deg, rgba(5,8,6,.78), rgba(8,12,9,.2) 55%, rgba(6,9,7,.58)), linear-gradient(0deg, rgba(4,7,5,.56), transparent 58%); }
+.episode-card__art::before { z-index: 2; }
+.episode-card__art-ring, .episode-card__episode, .episode-card__art-title,
+.episode-card__art .waveform, .episode-card__play { z-index: 3; }
+.episode-card:hover .episode-card__image { filter: saturate(1) contrast(1.03); transform: scale(1.065); }
+.news-card__category { display: inline-flex; align-items: center; gap: 5px; }
+.news-card__category svg { color: var(--orange); }
+.track-art__image { z-index: 0; object-fit: cover; filter: saturate(.82) contrast(1.04); }
+.track-art__shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(135deg, rgba(5,8,6,.12), rgba(5,8,6,.58)); }
+.track-art__type { z-index: 2; text-shadow: 0 1px 7px rgba(0,0,0,.55); }
+.track-art > svg { z-index: 2; color: #d9ff85; filter: drop-shadow(0 1px 4px rgba(0,0,0,.5)); }
+.track-art__sun { display: none; }
+.chart-row:hover .track-art__image { filter: saturate(1.04) contrast(1.02); transform: scale(1.08); }
+.track-art__image { transition: transform .4s ease, filter .3s ease; }
