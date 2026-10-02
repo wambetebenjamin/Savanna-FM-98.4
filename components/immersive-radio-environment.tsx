@@ -46,29 +46,29 @@ function VinylSculpture({ reducedMotion }: { reducedMotion: boolean }) {
     <group ref={group} position={[2.45, 0.15, 0]} rotation={[0.2, -0.38, 0.1]}>
       <mesh rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[1.72, 1.72, 0.14, 96]} />
-        <meshStandardMaterial color="#183f34" roughness={0.24} metalness={0.72} />
+        <meshStandardMaterial color="#0b1018" roughness={0.24} metalness={0.72} />
       </mesh>
       {[1.48, 1.25, 1.02, 0.78].map((radius) => (
         <mesh key={radius} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, .08]}>
           <torusGeometry args={[radius, 0.012, 8, 100]} />
-          <meshStandardMaterial color="#90b8a5" metalness={0.7} roughness={0.25} transparent opacity={0.46} />
+          <meshStandardMaterial color="#4de9d4" metalness={0.7} roughness={0.25} transparent opacity={0.46} />
         </mesh>
       ))}
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, .11]}>
         <cylinderGeometry args={[0.52, 0.52, 0.04, 64]} />
-        <meshStandardMaterial color="#dce8dd" roughness={0.42} metalness={0.2} />
+        <meshStandardMaterial color="#dfe7ff" roughness={0.42} metalness={0.2} />
       </mesh>
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, .15]}>
         <cylinderGeometry args={[0.11, 0.11, 0.08, 40]} />
-        <meshStandardMaterial color="#326e59" metalness={0.8} roughness={0.18} />
+        <meshStandardMaterial color="#8b5cff" metalness={0.8} roughness={0.18} />
       </mesh>
       <mesh position={[1.65, 0.85, .25]} rotation={[0, 0, -.58]} castShadow>
         <boxGeometry args={[1.5, 0.065, 0.08]} />
-        <meshStandardMaterial color="#8ba99a" metalness={0.75} roughness={0.22} />
+        <meshStandardMaterial color="#65728a" metalness={0.75} roughness={0.22} />
       </mesh>
       <mesh position={[1.05, 0.45, .27]}>
         <sphereGeometry args={[0.12, 32, 32]} />
-        <meshStandardMaterial color="#e8eee8" metalness={0.5} roughness={0.18} />
+        <meshStandardMaterial color="#f4f7ff" metalness={0.5} roughness={0.18} />
       </mesh>
     </group>
   );
@@ -92,7 +92,7 @@ function SignalBars({ reducedMotion, position = [-2.8, -1.5, -0.8] as [number, n
       {bars.map((height, index) => (
         <mesh key={index} position={[index * .16, height / 2, Math.sin(index * .4) * .16]} castShadow>
           <boxGeometry args={[.055, height, .055]} />
-          <meshStandardMaterial color={index % 4 === 0 ? '#b7ccb8' : '#3f8068'} emissive="#285f4d" emissiveIntensity={0.18} metalness={0.58} roughness={0.28} />
+          <meshStandardMaterial color={index % 4 === 0 ? '#a58bff' : '#35e6d1'} emissive="#204ee8" emissiveIntensity={0.18} metalness={0.58} roughness={0.28} />
         </mesh>
       ))}
     </group>
@@ -111,12 +111,12 @@ function BroadcastRings({ reducedMotion }: { reducedMotion: boolean }) {
       {[.7, 1.15, 1.62, 2.08].map((radius, index) => (
         <mesh key={radius} rotation={[index % 2 ? .9 : .35, index * .32, 0]}>
           <torusGeometry args={[radius, index === 0 ? .045 : .018, 12, 100]} />
-          <meshStandardMaterial color={index === 0 ? '#dce7d8' : '#4c8a72'} metalness={.7} roughness={.2} transparent opacity={.68 - index * .09} />
+          <meshStandardMaterial color={index === 0 ? '#dfe7ff' : '#48dcca'} metalness={.7} roughness={.2} transparent opacity={.68 - index * .09} />
         </mesh>
       ))}
       <mesh>
         <icosahedronGeometry args={[.48, 4]} />
-        <meshPhysicalMaterial color="#7ea892" roughness={.12} metalness={.34} transmission={.18} clearcoat={1} clearcoatRoughness={.16} />
+        <meshPhysicalMaterial color="#8365e8" roughness={.12} metalness={.34} transmission={.18} clearcoat={1} clearcoatRoughness={.16} />
       </mesh>
     </group>
   );
@@ -148,17 +148,17 @@ function RadioWorld({ variant, reducedMotion }: { variant: EnvironmentVariant; r
 
   return (
     <>
-      <fog attach="fog" args={['#eef2e8', 7, 15]} />
+      <fog attach="fog" args={['#090b10', 7, 15]} />
       <ambientLight intensity={1.55} />
-      <directionalLight position={[-4, 5, 5]} intensity={2.6} color="#fffdf2" castShadow />
-      <pointLight position={[3.5, 1.2, 3]} intensity={18} distance={8} color="#8fbca5" />
-      <pointLight position={[-3, -1, 2]} intensity={10} distance={7} color="#d3dcb9" />
+      <directionalLight position={[-4, 5, 5]} intensity={2.6} color="#eefaff" castShadow />
+      <pointLight position={[3.5, 1.2, 3]} intensity={18} distance={8} color="#35e6d1" />
+      <pointLight position={[-3, -1, 2]} intensity={10} distance={7} color="#8b5cff" />
       <group ref={world} scale={variant === 'studio' ? 1 : .88}>
         {variant === 'studio' && <VinylSculpture reducedMotion={reducedMotion} />}
         {variant === 'archive' && <BroadcastRings reducedMotion={reducedMotion} />}
         {variant === 'signal' && <BroadcastRings reducedMotion={reducedMotion} />}
         <SignalBars reducedMotion={reducedMotion} position={variant === 'studio' ? [-2.8, -1.5, -.8] : [-2.4, -1.6, -1.5]} />
-        <FloatingDust color={variant === 'studio' ? '#477d69' : '#769f8b'} />
+        <FloatingDust color={variant === 'studio' ? '#35e6d1' : '#9a7cff'} />
       </group>
     </>
   );

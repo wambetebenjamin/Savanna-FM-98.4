@@ -13,9 +13,9 @@ const liquidPaths = [
 ];
 
 const tones: Record<MorphTone, { first: string; second: string; glow: string }> = {
-  sage: { first: '#b9cfbd', second: '#5e917b', glow: '#dce8d9' },
-  cream: { first: '#efe9d8', second: '#a4b893', glow: '#fffdf4' },
-  forest: { first: '#477d69', second: '#173f34', glow: '#9fc2ae' },
+  sage: { first: '#35e6d1', second: '#2668ff', glow: '#8b5cff' },
+  cream: { first: '#edf7ff', second: '#65daca', glow: '#a78bfa' },
+  forest: { first: '#151b2a', second: '#6d44e8', glow: '#35e6d1' },
 };
 
 export function LiquidMorph({ tone = 'sage', className = '' }: { tone?: MorphTone; className?: string }) {
