@@ -1935,3 +1935,26 @@ body { font-size: 16px; }
   .section-backdrop img { opacity: .13; }
   .site-footer__column > a, .site-footer__column > button { font-size: 11px; }
 }
+
+/* Background photography is intentionally visible, not merely textural. */
+.section-backdrop img {
+  filter: grayscale(.12) saturate(.9) contrast(1.1);
+  opacity: .56;
+  transform: scale(1.035);
+}
+.section-backdrop > span {
+  background:
+    linear-gradient(90deg, rgba(8,11,9,.97) 0%, rgba(8,11,9,.84) 30%, rgba(8,11,9,.46) 66%, rgba(8,11,9,.62) 100%),
+    linear-gradient(180deg, rgba(8,11,9,.78), transparent 25%, transparent 70%, rgba(8,11,9,.86));
+}
+.section--shows .section-backdrop img,
+.section--presenters .section-backdrop img,
+.section--podcasts .section-backdrop img,
+.section--charts .section-backdrop img,
+.section--events .section-backdrop img,
+.section--news .section-backdrop img,
+.section--social .section-backdrop img { opacity: .56; }
+@media (max-width: 700px) {
+  .section-backdrop img { opacity: .44; }
+  .section-backdrop > span { background: linear-gradient(90deg, rgba(8,11,9,.94), rgba(8,11,9,.58)), linear-gradient(180deg, rgba(8,11,9,.7), transparent 30%, rgba(8,11,9,.84)); }
+}
