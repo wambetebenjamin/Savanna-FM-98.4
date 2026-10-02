@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'The heartbeat of East Africa. Live from Nairobi.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#0a0a0a',
-    theme_color: '#ff5c00',
+    background_color: '#090b10',
+    theme_color: '#b6ff3b',
     orientation: 'portrait-primary',
     lang: 'en-KE',
     icons: [

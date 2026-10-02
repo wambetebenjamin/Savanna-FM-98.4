@@ -3,6 +3,9 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
+import ImmersiveRadioEnvironment from './immersive-radio-environment';
+import { LiquidMorph, MorphingSignal } from './morphing-radio-graphics';
+import { AnimatedFlipbook, CinematicMotionLayer } from './cinematic-motion-layer';
 import {
   ArrowDown,
   ArrowDownRight,
@@ -23,10 +26,10 @@ import {
   Minus,
   Music2,
   Pause,
+  Palette,
   Play,
   Radio,
   Send,
-  Sparkles,
   Ticket,
   TrendingDown,
   TrendingUp,
@@ -57,7 +60,43 @@ const navigation = [
   { label: 'News', href: '#news' },
   { label: 'Podcasts', href: '#podcasts' },
   { label: 'Events', href: '#events' },
-  { label: 'Advertise', href: '#advertise' },
+  { label: 'Rates', href: '#rate-card' },
+];
+
+const ratePlans = [
+  {
+    name: 'Radio Spot',
+    price: 'KES 5,000',
+    cadence: 'starting rate',
+    description: 'A 30 second campaign spot placed in a selected daypart.',
+    features: ['Professional scheduling', 'One selected daypart', 'Campaign confirmation'],
+    icon: Radio,
+  },
+  {
+    name: 'Live Impact',
+    price: 'KES 15,000',
+    cadence: 'per activation',
+    description: 'A presenter led live read supported by a 60 second radio spot.',
+    features: ['Presenter live read', '60 second radio spot', 'Prime show placement'],
+    icon: Mic,
+    featured: true,
+  },
+  {
+    name: 'Show Partner',
+    price: 'KES 85,000',
+    cadence: 'starting weekly',
+    description: 'Own a recurring show moment and build meaningful frequency.',
+    features: ['Show naming mentions', 'Daily brand credits', 'Digital support'],
+    icon: Headphones,
+  },
+  {
+    name: 'Event and 360',
+    price: 'Custom',
+    cadence: 'built for your brief',
+    description: 'Radio, social, events and custom production in one campaign.',
+    features: ['Campaign strategy', 'On ground activation', 'Custom media mix'],
+    icon: CalendarDays,
+  },
 ];
 
 const waveformHeights = Array.from({ length: 52 }, (_, index) => 18 + ((index * 29 + 7) % 82));
@@ -66,30 +105,18 @@ const miniWaveHeights = Array.from({ length: 28 }, (_, index) => 20 + ((index * 
 function Reveal({
   children,
   className,
-  delay = 0,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
 }) {
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.12 }}
-      transition={{ duration: 0.58, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 function Eyebrow({ children, number }: { children: React.ReactNode; number?: string }) {
   return (
     <p className="eyebrow">
       {number && <span className="eyebrow__number">{number}</span>}
-      <span className="eyebrow__line" />
       {children}
     </p>
   );
@@ -101,6 +128,25 @@ function Waveform({ compact = false, animated = false }: { compact?: boolean; an
     <span className={`waveform ${compact ? 'waveform--compact' : ''} ${animated ? 'waveform--animated' : ''}`} aria-hidden="true">
       {bars.map((height, index) => (
         <i key={index} style={{ '--bar-height': `${height}%`, '--bar-delay': `${(index % 11) * -0.11}s` } as React.CSSProperties} />
+      ))}
+    </span>
+  );
+}
+
+function AnimatedLetters({ text, accent = false, delay = 0 }: { text: string; accent?: boolean; delay?: number }) {
+  return (
+    <span className={`kinetic-word ${accent ? 'kinetic-word--accent' : ''}`} aria-label={text}>
+      {Array.from(text).map((character, index) => (
+        <motion.span
+          className="kinetic-letter"
+          aria-hidden="true"
+          key={`${character}-${index}`}
+          initial={{ opacity: 0, y: 34, rotateX: -70 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{ duration: .58, delay: delay + index * .025, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {character === ' ' ? '\u00a0' : character}
+        </motion.span>
       ))}
     </span>
   );
@@ -123,14 +169,22 @@ function AnimatedCount({ value }: { value: number }) {
   return <span>{count.toLocaleString('en-KE')}</span>;
 }
 
-function TrackArtwork({ tone, label }: { tone: string; label: string }) {
+function TrackArtwork({ tone, label, image }: { tone: string; label: string; image: string }) {
   return (
     <div className={`track-art track-art--${tone}`} aria-hidden="true">
-      <span className="track-art__sun" />
+      <Image className="track-art__image" src={image} alt="" fill sizes="45px" />
+      <span className="track-art__shade" />
       <span className="track-art__type">{label}</span>
-      <Music2 size={19} strokeWidth={1.6} />
+      <Music2 size={16} strokeWidth={1.8} />
     </div>
   );
+}
+
+function NewsCategoryIcon({ tone }: { tone: string }) {
+  if (tone === 'music') return <Music2 size={11} />;
+  if (tone === 'city') return <MapPin size={11} />;
+  if (tone === 'sport') return <TrendingUp size={11} />;
+  return <Palette size={11} />;
 }
 
 function NewsCard({ item, index }: { item: NewsItem; index: number }) {
@@ -138,7 +192,7 @@ function NewsCard({ item, index }: { item: NewsItem; index: number }) {
     <article className="news-card">
       <a className={`news-card__image news-card__image--${item.tone}`} href="#newsletter" aria-label={`Read: ${item.title}`}>
         <Image src={item.image} alt="" fill sizes="(max-width: 700px) 75vw, 315px" loading="lazy" />
-        <span className="news-card__category">{item.label}</span>
+        <span className="news-card__category"><NewsCategoryIcon tone={item.tone} /> {item.label}</span>
         <span className="news-card__number">0{index + 1}</span>
         <span className="news-card__open"><ArrowUpRight size={17} /></span>
       </a>
@@ -163,6 +217,8 @@ function EpisodeCard({
   return (
     <article className={`episode-card ${isActive ? 'episode-card--active' : ''}`}>
       <div className={`episode-card__art episode-card__art--${episode.artwork}`}>
+        <Image className="episode-card__image" src={episode.image} alt="" fill sizes="(max-width: 700px) 50vw, 33vw" loading="lazy" />
+        <div className="episode-card__art-shade" />
         <div className="episode-card__art-ring" />
         <span className="episode-card__episode">{episode.episode}</span>
         <div className="episode-card__art-title">SAVANNA<br /><em>sounds</em></div>
@@ -186,6 +242,15 @@ function AppLogo({ compact = false }: { compact?: boolean }) {
       <span className="brand__mark" aria-hidden="true"><span /><span /><span /><span /></span>
       <span className="brand__word">SAVANNA<span className="brand__frequency">FM 98.4</span></span>
     </a>
+  );
+}
+
+function SectionBackdrop({ src, position = 'center' }: { src: string; position?: string }) {
+  return (
+    <div className="section-backdrop" aria-hidden="true">
+      <Image src={src} alt="" fill sizes="100vw" style={{ objectPosition: position }} />
+      <span />
+    </div>
   );
 }
 
@@ -384,7 +449,7 @@ export default function StationExperience() {
         if (whatsappTab) whatsappTab.location.href = whatsappUrl;
         else window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
         setRequestState('sent');
-        showToast('Saved for the team — finish by sending your WhatsApp message.');
+        showToast('Saved for the team. Finish by sending your WhatsApp message.');
       }
     } catch {
       if (whatsappTab) whatsappTab.location.href = whatsappUrl;
@@ -406,14 +471,14 @@ export default function StationExperience() {
       const result = await response.json();
       if (!response.ok) {
         setNewsletterState('idle');
-        showToast(result.error || 'Newsletter sign-up is not connected yet.');
+        showToast(result.error || 'Newsletter signup is not connected yet.');
         return;
       }
       setNewsletterState('done');
       showToast('You are on the list. See you in your inbox.');
     } catch {
       setNewsletterState('idle');
-      showToast('Newsletter sign-up is temporarily unavailable. Email hello@savannafm.co.ke.');
+      showToast('Newsletter signup is temporarily unavailable. Email hello@savannafm.co.ke.');
     }
   };
 
@@ -428,6 +493,7 @@ export default function StationExperience() {
 
   return (
     <main>
+      <CinematicMotionLayer />
       <audio
         ref={audioRef}
         preload="none"
@@ -465,7 +531,9 @@ export default function StationExperience() {
         </div>
       </header>
 
-      <section className="hero" id="home">
+      <section className="hero hero--immersive" id="home">
+        <LiquidMorph tone="cream" className="liquid-morph--hero" />
+        <ImmersiveRadioEnvironment variant="studio" />
         <div className="hero__texture" aria-hidden="true" />
         <div className="hero__wave-field" aria-hidden="true"><Waveform animated /></div>
         <div className="hero__rings" aria-hidden="true"><span /><span /><span /></div>
@@ -475,15 +543,11 @@ export default function StationExperience() {
               <span className="live-pill"><i /> ON AIR · NAIROBI</span>
               <span className="hero__coords">1°17′S&nbsp;&nbsp; 36°49′E</span>
             </div>
-            <motion.h1
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-            >
-              THE HEARTBEAT<br />
-              OF <span>EAST AFRICA.</span>
-            </motion.h1>
-            <p className="hero__intro">Your city. Your sound. Your station.<br /><strong>Savanna FM 98.4</strong> — live from Nairobi.</p>
+            <h1 className="kinetic-headline">
+              <AnimatedLetters text="THE HEARTBEAT" delay={.08} /><br />
+              <AnimatedLetters text="OF " delay={.26} /><AnimatedLetters text="EAST AFRICA." accent delay={.31} />
+            </h1>
+            <p className="hero__intro">Your city. Your sound. Your station.<br /><strong>Savanna FM 98.4</strong>, live from Nairobi.</p>
             <div className="hero__buttons">
               <button className="button button--orange button--hero" type="button" onClick={toggleLive}>
                 {playing ? <Pause size={17} fill="currentColor" /> : <Play size={17} fill="currentColor" />}
@@ -502,9 +566,11 @@ export default function StationExperience() {
               </div>
               <span className="hero__listen-wave"><Waveform compact animated /></span>
             </div>
+            <a className="hero-business-cta" href="#rate-card"><Radio size={15} /><span><strong>Build your audience with Savanna</strong><small>View advertising rates</small></span><ArrowRight size={15} /></a>
           </div>
 
-          <div className="hero-visual" aria-label="Savanna FM on-air presenter">
+          <div className="hero-visual" aria-label="Savanna FM on air presenter">
+            <AnimatedFlipbook />
             <div className="hero-visual__sun" />
             <div className="hero-visual__frame">
               <Image src="/images/voice-red-dress.jpg" alt="Performer at a microphone in a Pexels studio photograph" fill sizes="(max-width: 700px) 78vw, (max-width: 960px) 40vw, 38vw" priority />
@@ -531,18 +597,19 @@ export default function StationExperience() {
         <div className="frequency-strip__inner">
           <span className="frequency-strip__label"><Radio size={17} /> THE FREQUENCY</span>
           <div className="frequency-strip__list">
-            <span>KENYAN MUSIC</span><i>✳</i><span>REAL TALK</span><i>✳</i><span>GLOBAL SOUNDS</span><i>✳</i><span>CITY STORIES</span><i>✳</i><span>GOOD ENERGY</span>
+            <span>KENYAN MUSIC</span><span>REAL TALK</span><span>GLOBAL SOUNDS</span><span>CITY STORIES</span><span>GOOD ENERGY</span>
           </div>
           <span className="frequency-strip__right">98.4 FM <span>↗</span></span>
         </div>
       </section>
 
       <section className="section section--shows page-shell" id="shows">
+        <SectionBackdrop src="/images/bg-neon-microphone.jpg" position="76% center" />
         <Reveal>
           <div className="section-heading section-heading--split">
             <div>
               <Eyebrow number="01">ON THE FREQUENCY</Eyebrow>
-              <h2>Find your<br /><em>frequency.</em></h2>
+              <h2>Find your <em>frequency.</em></h2>
             </div>
             <div className="section-heading__aside">
               <p>Whatever the hour, there is a voice, a beat, and a whole lot of Nairobi waiting for you.</p>
@@ -568,15 +635,17 @@ export default function StationExperience() {
           ))}
         </div>
         <div className="schedule-note"><span className="schedule-note__dot" /> Nairobi time · EAT (UTC+3) <span className="schedule-note__line" /> <span>Missed a show? Catch it in Podcasts.</span><a href="#podcasts">Go to replay <ArrowRight size={14} /></a></div>
+        <a className="section-campaign-cta" href="#rate-card"><span className="section-campaign-cta__icon"><Radio size={18} /></span><span><strong>Want your brand in this hour?</strong><small>Sponsor a show or book a radio spot</small></span><span>See rates <ArrowRight size={15} /></span></a>
       </section>
 
       <section className="section section--presenters" id="presenters">
+        <SectionBackdrop src="/images/bg-studio-microphone.jpg" position="78% center" />
         <div className="page-shell">
           <Reveal>
             <div className="section-heading section-heading--split section-heading--presenters">
               <div>
                 <Eyebrow number="02">THE PEOPLE BEHIND THE MIC</Eyebrow>
-                <h2>Voices that<br /><em>feel like home.</em></h2>
+                <h2>Voices that <em>feel like home.</em></h2>
               </div>
               <div className="section-heading__aside">
                 <p>Big personalities. Bigger playlists. Meet the people bringing Nairobi into every room.</p>
@@ -605,16 +674,17 @@ export default function StationExperience() {
               </Reveal>
             ))}
           </div>
-          <div className="presenter-footnote"><span className="presenter-footnote__spark">✳</span> THE VOICES OF YOUR CITY, EVERY DAY.</div>
+          <div className="presenter-footnote">THE VOICES OF YOUR CITY, EVERY DAY.</div>
         </div>
       </section>
 
       <section className="section section--news page-shell" id="news">
+        <SectionBackdrop src="/images/bg-nairobi-skyline.jpg" position="center center" />
         <Reveal>
           <div className="section-heading section-heading--split">
             <div>
               <Eyebrow number="03">THE LATEST FREQUENCY</Eyebrow>
-              <h2>More than<br /><em>just the music.</em></h2>
+              <h2>More than <em>just the music.</em></h2>
             </div>
             <div className="section-heading__aside">
               <p>Local voices, culture, sport and the stories moving East Africa right now.</p>
@@ -632,13 +702,16 @@ export default function StationExperience() {
         <div className="section-bottom-link"><span>STAY CURIOUS. STAY CONNECTED.</span><a className="text-link" href="#social">Find us on socials <ArrowUpRight size={16} /></a></div>
       </section>
 
-      <section className="section section--podcasts" id="podcasts">
+      <section className="section section--podcasts section--webgl section--morphing" id="podcasts">
+        <SectionBackdrop src="/images/bg-podcast-studio.jpg" position="75% center" />
+        <LiquidMorph tone="sage" className="liquid-morph--section" />
+        <ImmersiveRadioEnvironment variant="archive" />
         <div className="page-shell">
           <Reveal>
             <div className="section-heading section-heading--split">
               <div>
                 <Eyebrow number="04">SOUND THAT STAYS WITH YOU</Eyebrow>
-                <h2>On demand.<br /><em>On your time.</em></h2>
+                <h2>On demand. <em>On your time.</em></h2>
               </div>
               <div className="section-heading__aside">
                 <p>Conversations worth replaying, mixes worth keeping, and the shows you missed.</p>
@@ -653,19 +726,21 @@ export default function StationExperience() {
               </Reveal>
             ))}
           </div>
-          <div className="podcast-cta"><span><Headphones size={16} /> FROM THE STUDIO TO YOUR POCKET</span><a href="#newsletter">Never miss an episode <ArrowRight size={16} /></a></div>
+          <div className="podcast-cta"><span><Headphones size={16} /> FROM THE STUDIO TO YOUR POCKET</span><div><a href="#newsletter">Never miss an episode <ArrowRight size={16} /></a><a className="podcast-cta__sponsor" href="#rate-card">Sponsor a podcast <ArrowUpRight size={16} /></a></div></div>
         </div>
       </section>
 
-      <section className="section section--charts page-shell" id="charts">
+      <section className="section section--charts section--morphing page-shell" id="charts">
+        <SectionBackdrop src="/images/bg-concert-crowd.jpg" position="center center" />
+        <LiquidMorph tone="cream" className="liquid-morph--section liquid-morph--reverse" />
         <Reveal>
           <div className="section-heading section-heading--split">
             <div>
               <Eyebrow number="05">THE SOUND OF RIGHT NOW</Eyebrow>
-              <h2>Ten tracks.<br /><em>One heartbeat.</em></h2>
+              <h2>Ten tracks. <em>One heartbeat.</em></h2>
             </div>
             <div className="section-heading__aside">
-              <p>The tracks we cannot stop playing — selected by our music team and the people who listen.</p>
+              <p>The tracks we cannot stop playing, selected by our music team and the people who listen.</p>
               <span className="chart-date"><span className="chart-date__dot" /> WEEK 40 <i /> OCT 2026</span>
             </div>
           </div>
@@ -675,7 +750,7 @@ export default function StationExperience() {
             {chartTracks.map((track, index) => (
               <motion.div className="chart-row" key={track.rank} role="listitem" initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.035 }}>
                 <span className={`chart-row__rank ${index < 3 ? 'chart-row__rank--top' : ''}`}>{track.rank}</span>
-                <TrackArtwork tone={track.art} label={track.artist.split(' ').map((part) => part[0]).join('').slice(0, 2)} />
+                <TrackArtwork tone={track.art} image={track.image} label={track.artist.split(' ').map((part) => part[0]).join('').slice(0, 2)} />
                 <span className="chart-row__song"><strong>{track.title}</strong><small>{track.artist}</small></span>
                 <span className="chart-row__weeks">{track.weeks} <small>WKS</small></span>
                 <span className={`chart-row__trend chart-row__trend--${track.trend}`} aria-label={track.trend === 'up' ? 'Trending up' : track.trend === 'down' ? 'Trending down' : 'No change'}>
@@ -688,21 +763,22 @@ export default function StationExperience() {
           <aside className="chart-feature">
             <div className="chart-feature__art"><Image src="/images/nairobi-crowd.jpg" alt="Audience lights at a live performance" fill sizes="(max-width: 700px) 100vw, 40vw" loading="lazy" /><div className="chart-feature__overlay" /><div className="chart-feature__circle">THE<br /><strong>10</strong><br />RIGHT<br />NOW</div><Waveform compact animated /></div>
             <div className="chart-feature__copy"><span>THE SAVANNA TOP 10</span><h3>Kenya, this one’s<br /><em>for you.</em></h3><p>A weekly snapshot of the sounds shaping the scene. What’s your number one?</p><button className="text-link" type="button" onClick={() => setRequestOpen(true)}>Make a song request <ArrowUpRight size={16} /></button></div>
-            <div className="chart-feature__foot"><span>CURATED IN NAIROBI</span><span>98.4 FM <i>✳</i></span></div>
+            <div className="chart-feature__foot"><span>CURATED IN NAIROBI</span><span>98.4 FM</span></div>
           </aside>
         </div>
       </section>
 
       <section className="section section--events" id="events">
+        <SectionBackdrop src="/images/bg-stage-crowd.jpg" position="center center" />
         <div className="page-shell">
           <Reveal>
             <div className="section-heading section-heading--split">
               <div>
                 <Eyebrow number="06">MEET US OUT THERE</Eyebrow>
-                <h2>Good sound.<br /><em>Better company.</em></h2>
+                <h2>Good sound. <em>Better company.</em></h2>
               </div>
               <div className="section-heading__aside">
-                <p>From the airwaves to the dance floor — pull up and be part of the story.</p>
+                <p>From the airwaves to the dance floor. Pull up and be part of the story.</p>
                 <a className="text-link" href="#advertise">Partner on an event <ArrowUpRight size={16} /></a>
               </div>
             </div>
@@ -717,40 +793,79 @@ export default function StationExperience() {
               </Reveal>
             ))}
           </div>
-          <div className="events-note"><span>✳</span> WE’LL SAVE YOU A SPOT.</div>
+          <div className="events-note"><span>WE’LL SAVE YOU A SPOT.</span><a href="#rate-card">Put your brand at the next event <ArrowUpRight size={15} /></a></div>
         </div>
       </section>
 
-      <section className="advertise" id="advertise">
+      <section className="advertise advertise--webgl section--morphing" id="advertise">
+        <LiquidMorph tone="forest" className="liquid-morph--advertise" />
+        <ImmersiveRadioEnvironment variant="signal" />
         <div className="advertise__noise" aria-hidden="true" />
         <div className="page-shell advertise__inner">
           <Reveal className="advertise__copy">
             <Eyebrow number="07">GOOD BRANDS. GOOD ENERGY.</Eyebrow>
             <h2>Your brand,<br />in the <em>right frequency.</em></h2>
-            <p>Bring your business into the conversation. Radio, digital, live events — make a connection that travels.</p>
+            <p>Bring your business into the conversation. Radio, digital and live events that make a connection that travels.</p>
             <div className="advertise__buttons">
-              <a className="button button--light" href="/savanna-media-kit.txt" download><span>Download rate card</span><ArrowDown size={16} /></a>
-              <a className="button button--outline" href={`${whatsappBase}?text=${encodeURIComponent('Hello! I would like to advertise with Savanna FM 98.4.')}`} target="_blank" rel="noreferrer"><span>Talk to our team</span><ArrowUpRight size={16} /></a>
+              <a className="button button--light" href="#rate-card"><span>View rates and packages</span><ArrowDown size={16} /></a>
+              <a className="button button--outline" href={`${whatsappBase}?text=${encodeURIComponent('Hello! I would like to advertise with Savanna FM 98.4.')}`} target="_blank" rel="noreferrer"><span>Get a campaign quote</span><ArrowUpRight size={16} /></a>
             </div>
             <span className="advertise__contact"><Mail size={13} /> partnerships@savannafm.co.ke</span>
           </Reveal>
           <div className="advertise__graphic" aria-hidden="true">
             <div className="advertise__orbit advertise__orbit--one" /><div className="advertise__orbit advertise__orbit--two" />
-            <div className="advertise__disc"><span>YOUR<br /><strong>BRAND</strong><br />HERE</span><i>✳</i></div>
+            <div className="advertise__disc"><span>YOUR<br /><strong>BRAND</strong><br />HERE</span></div>
             <div className="advertise__graphic-label">REACH<br />THE WHOLE<br />CITY.</div>
             <div className="advertise__graphic-small">98.4<br />FM</div>
           </div>
         </div>
       </section>
 
+      <section className="section rate-card" id="rate-card">
+        <SectionBackdrop src="/images/bg-neon-microphone.jpg" position="center center" />
+        <div className="page-shell">
+          <div className="rate-card__heading">
+            <div>
+              <Eyebrow number="08">ADVERTISING RATE CARD</Eyebrow>
+              <h2>Put your brand <em>on the frequency.</em></h2>
+            </div>
+            <div className="rate-card__intro">
+              <p>Clear starting rates for radio, live reads, show partnerships and complete campaigns.</p>
+              <a href={`${whatsappBase}?text=${encodeURIComponent('Hello! Please help me choose a Savanna FM advertising package.')}`} target="_blank" rel="noreferrer">Help me choose <ArrowUpRight size={16} /></a>
+            </div>
+          </div>
+          <div className="rate-grid">
+            {ratePlans.map(({ name, price, cadence, description, features, icon: Icon, featured }) => (
+              <article className={`rate-plan ${featured ? 'rate-plan--featured' : ''}`} key={name}>
+                {featured && <span className="rate-plan__popular">MOST POPULAR</span>}
+                <span className="rate-plan__icon"><Icon size={20} /></span>
+                <h3>{name}</h3>
+                <div className="rate-plan__price"><strong>{price}</strong><small>{cadence}</small></div>
+                <p>{description}</p>
+                <ul>{features.map((feature) => <li key={feature}><Check size={14} /> {feature}</li>)}</ul>
+                <a href={`${whatsappBase}?text=${encodeURIComponent(`Hello! I am interested in the ${name} advertising package on Savanna FM 98.4.`)}`} target="_blank" rel="noreferrer">Choose this package <ArrowUpRight size={15} /></a>
+              </article>
+            ))}
+          </div>
+          <div className="rate-card__footer">
+            <p>Rates are indicative starting prices. Final pricing, production and inventory are confirmed in writing.</p>
+            <div>
+              <a className="button button--orange" href={`${whatsappBase}?text=${encodeURIComponent('Hello! I would like a custom advertising proposal from Savanna FM 98.4.')}`} target="_blank" rel="noreferrer">Request a custom proposal <Send size={16} /></a>
+              <a className="button rate-card__download" href="/savanna-media-kit.txt" download>Download media kit <ArrowDown size={16} /></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="section section--social page-shell" id="social">
+        <SectionBackdrop src="/images/listener-headphones.jpg" position="80% center" />
         <Reveal>
           <div className="section-heading section-heading--split">
             <div>
-              <Eyebrow number="08">OUT IN THE WORLD</Eyebrow>
-              <h2>Join the<br /><em>conversation.</em></h2>
+              <Eyebrow number="09">OUT IN THE WORLD</Eyebrow>
+              <h2>Join the <em>conversation.</em></h2>
             </div>
-            <div className="section-heading__aside"><p>From the booth to the timeline — tag your moment with <strong>#SavannaOnAir</strong>.</p><a className="text-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">Follow along <ArrowUpRight size={16} /></a></div>
+            <div className="section-heading__aside"><p>From the booth to the timeline. Tag your moment with <strong>#SavannaOnAir</strong>.</p><div className="social-heading-links"><a className="text-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">Follow along <ArrowUpRight size={16} /></a><a className="text-link" href="#rate-card">Advertise here <ArrowUpRight size={16} /></a></div></div>
           </div>
         </Reveal>
         <div className="social-layout">
@@ -773,7 +888,7 @@ export default function StationExperience() {
 
       <section className="newsletter" id="newsletter">
         <div className="page-shell newsletter__inner">
-          <div className="newsletter__copy"><span className="newsletter__icon"><Sparkles size={17} /></span><div><span className="eyebrow">THE WEEKLY FREQUENCY</span><h2>Good music. <em>In your inbox.</em></h2><p>Our playlist, new stories, and things to do around the city. No noise.</p></div></div>
+          <div className="newsletter__copy"><span className="newsletter__icon"><Mail size={17} /></span><div><span className="eyebrow">THE WEEKLY FREQUENCY</span><h2>Good music. <em>In your inbox.</em></h2><p>Our playlist, new stories, and things to do around the city. No noise.</p></div></div>
           <form className="newsletter__form" onSubmit={handleNewsletter}>
             <label className="sr-only" htmlFor="newsletter-email">Your email address</label>
             <input id="newsletter-email" type="email" placeholder="Your email address" value={newsletterEmail} onChange={(event) => setNewsletterEmail(event.target.value)} required disabled={newsletterState !== 'idle'} />
@@ -788,10 +903,10 @@ export default function StationExperience() {
           <div className="site-footer__main">
             <div className="site-footer__brand"><AppLogo /><p>THE SOUND OF HERE.<br />LIVE FROM NAIROBI.</p><span className="footer-frequency">98.4<span> FM</span></span></div>
             <div className="site-footer__column"><span className="site-footer__label">TUNE IN</span><a href="#shows">Shows & schedule</a><a href="#podcasts">Podcasts</a><button type="button" onClick={toggleLive}>Listen live <ArrowUpRight size={13} /></button></div>
-            <div className="site-footer__column"><span className="site-footer__label">SAY HELLO</span><a href="mailto:hello@savannafm.co.ke">hello@savannafm.co.ke</a><a href="mailto:partnerships@savannafm.co.ke">Advertise with us</a><a href="tel:+254112272061">+254 112 272 061</a></div>
+            <div className="site-footer__column"><span className="site-footer__label">SAY HELLO</span><a href="mailto:hello@savannafm.co.ke">hello@savannafm.co.ke</a><a href="#rate-card">View advertising rates</a><a href="tel:+254112272061">+254 112 272 061</a></div>
             <div className="site-footer__column site-footer__social"><span className="site-footer__label">FIND YOUR PEOPLE</span><div><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={16} /></a><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><Facebook size={16} /></a><a href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="YouTube"><Youtube size={17} /></a><a href="https://x.com/" target="_blank" rel="noreferrer" aria-label="X"><span>𝕏</span></a></div><span className="site-footer__location"><MapPin size={13} /> NAIROBI, KENYA</span></div>
           </div>
-          <div className="site-footer__bottom"><span>© 2026 SAVANNA FM 98.4 · ALL RIGHTS RESERVED</span><span>MADE FOR THE FREQUENCY OF HERE <i>✳</i></span><a href="#home">BACK TO TOP <ArrowUpRight size={13} /></a></div>
+          <div className="site-footer__bottom"><span>© 2026 SAVANNA FM 98.4 · ALL RIGHTS RESERVED</span><span>MADE FOR THE FREQUENCY OF HERE</span><a href="#home">BACK TO TOP <ArrowUpRight size={13} /></a></div>
         </div>
       </footer>
 
@@ -809,7 +924,7 @@ export default function StationExperience() {
             <button className="player-main-button" type="button" onClick={toggleLive} aria-label={playing ? 'Pause stream' : 'Play stream'}>
               {loading ? <span className="player-spinner" /> : playing ? <Pause size={17} fill="currentColor" /> : <Play size={17} fill="currentColor" />}
             </button>
-            <div className="player-controls__meta"><div className="player-status"><span className={playing ? 'player-status__dot player-status__dot--live' : 'player-status__dot'} />{playing ? 'LIVE ON AIR' : 'READY WHEN YOU ARE'}</div><Waveform compact animated={playing} /></div>
+            <div className="player-controls__meta"><div className="player-status"><span className={playing ? 'player-status__dot player-status__dot--live' : 'player-status__dot'} />{playing ? 'LIVE ON AIR' : 'READY WHEN YOU ARE'}</div><MorphingSignal /></div>
           </div>
           <div className="player-volume"><button type="button" aria-label={muted ? 'Unmute' : 'Mute'} onClick={() => setMuted((state) => !state)}>{muted || volume === 0 ? <VolumeX size={17} /> : <Volume2 size={17} />}</button><input aria-label="Volume" type="range" min="0" max="1" step="0.01" value={muted ? 0 : volume} onChange={(event) => { setVolume(Number(event.target.value)); setMuted(false); }} style={{ '--volume-fill': `${(muted ? 0 : volume) * 100}%` } as React.CSSProperties} /></div>
           <button className="player-request" type="button" onClick={() => { setRequestOpen(true); setRequestState('idle'); }}><span className="player-request__icon"><Mic size={15} /></span><span>Request a song</span><ArrowUpRight size={15} /></button>
@@ -821,7 +936,7 @@ export default function StationExperience() {
           <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={(event) => { if (event.target === event.currentTarget) resetRequest(); }}>
             <motion.div className="request-modal" role="dialog" aria-modal="true" aria-labelledby="request-title" initial={{ opacity: 0, y: 24, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.98 }} transition={{ duration: 0.22 }}>
               <button className="request-modal__close" type="button" onClick={resetRequest} aria-label="Close request form"><X size={19} /></button>
-              <span className="request-modal__eyebrow"><span className="on-air-dot" /> DIRECT TO THE STUDIO</span>
+              <span className="request-modal__eyebrow"><span className="on air-dot" /> DIRECT TO THE STUDIO</span>
               <h2 id="request-title">Make it<br /><em>your song.</em></h2>
               <p>Tell us what you want to hear, who it’s for, and we’ll pass it on to the team.</p>
               {requestState === 'sent' ? (

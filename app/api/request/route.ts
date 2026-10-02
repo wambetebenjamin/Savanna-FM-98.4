@@ -82,7 +82,7 @@ export async function POST(request: Request) {
 
   const notification = [
     '🎵 Savanna FM song request',
-    `Song: ${song}${artist ? ` — ${artist}` : ''}`,
+    `Song: ${song}${artist ? ` by ${artist}` : ''}`,
     name ? `From: ${name}` : '',
     dedication ? `Dedication: ${dedication}` : '',
   ].filter(Boolean).join('\n');
