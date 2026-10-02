@@ -3,6 +3,7 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
+import ImmersiveRadioEnvironment from './immersive-radio-environment';
 import {
   ArrowDown,
   ArrowDownRight,
@@ -465,7 +466,8 @@ export default function StationExperience() {
         </div>
       </header>
 
-      <section className="hero" id="home">
+      <section className="hero hero--immersive" id="home">
+        <ImmersiveRadioEnvironment variant="studio" />
         <div className="hero__texture" aria-hidden="true" />
         <div className="hero__wave-field" aria-hidden="true"><Waveform animated /></div>
         <div className="hero__rings" aria-hidden="true"><span /><span /><span /></div>
@@ -632,7 +634,8 @@ export default function StationExperience() {
         <div className="section-bottom-link"><span>STAY CURIOUS. STAY CONNECTED.</span><a className="text-link" href="#social">Find us on socials <ArrowUpRight size={16} /></a></div>
       </section>
 
-      <section className="section section--podcasts" id="podcasts">
+      <section className="section section--podcasts section--webgl" id="podcasts">
+        <ImmersiveRadioEnvironment variant="archive" />
         <div className="page-shell">
           <Reveal>
             <div className="section-heading section-heading--split">
@@ -721,7 +724,8 @@ export default function StationExperience() {
         </div>
       </section>
 
-      <section className="advertise" id="advertise">
+      <section className="advertise advertise--webgl" id="advertise">
+        <ImmersiveRadioEnvironment variant="signal" />
         <div className="advertise__noise" aria-hidden="true" />
         <div className="page-shell advertise__inner">
           <Reveal className="advertise__copy">

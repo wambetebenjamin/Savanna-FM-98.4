@@ -1210,3 +1210,78 @@ main {
   .main-nav { background: rgba(248,249,243,.98); border-color: rgba(23,60,50,.13); box-shadow: 0 16px 30px rgba(34,62,53,.1); }
   .main-nav a, .main-nav__home { color: #294f43; border-color: rgba(23,60,50,.09); }
 }
+
+/* GPU accelerated immersive radio environments */
+.immersive-radio-world {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.immersive-radio-world canvas { width: 100% !important; height: 100% !important; filter: saturate(.9) contrast(1.02); }
+.hero--immersive .immersive-radio-world {
+  right: -3%;
+  left: 35%;
+  opacity: .92;
+  mask-image: radial-gradient(ellipse at 64% 48%, black 0 48%, transparent 82%);
+}
+.hero--immersive .hero__inner { z-index: 2; }
+.hero--immersive .hero__texture, .hero--immersive .hero__wave-field, .hero--immersive .hero__rings { z-index: 1; }
+.hero--immersive .hero__wave-field { opacity: .11; }
+.hero--immersive .hero-visual { filter: drop-shadow(0 34px 60px rgba(30, 67, 54, .18)); transform-style: preserve-3d; }
+.hero--immersive .hero-visual__frame { box-shadow: 0 35px 110px rgba(31, 71, 57, .25), inset 0 1px 0 rgba(255,255,255,.25); }
+
+.section--webgl, .advertise--webgl { position: relative; isolation: isolate; }
+.section--webgl > .page-shell, .advertise--webgl > .advertise__inner, .advertise--webgl > .advertise__noise { position: relative; z-index: 2; }
+.section--webgl .immersive-radio-world {
+  top: 3%;
+  right: 0;
+  bottom: 0;
+  left: 47%;
+  opacity: .36;
+  mask-image: radial-gradient(ellipse at 68% 44%, black, transparent 72%);
+}
+.advertise--webgl .immersive-radio-world {
+  left: 44%;
+  opacity: .43;
+  mix-blend-mode: multiply;
+  mask-image: radial-gradient(circle at 62% 50%, black, transparent 68%);
+}
+.advertise--webgl .advertise__graphic { opacity: .5; transform: translateZ(30px); }
+
+/* Real depth across the full journey, with WebGL as the visual anchor. */
+.section { perspective: 1500px; }
+.show-grid, .presenter-grid, .episode-grid, .event-grid, .social-layout, .chart-layout { transform-style: preserve-3d; }
+.show-card, .presenter-card__visual, .episode-card__art, .event-card, .chart-feature,
+.social-feed-card, .instagram-wall, .news-card__image {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.episode-card:hover .episode-card__art,
+.event-card:hover,
+.chart-feature:hover,
+.social-feed-card:hover,
+.instagram-wall:hover {
+  border-color: rgba(33,99,79,.34);
+  box-shadow: 0 30px 75px rgba(39,76,62,.17), inset 0 1px 0 rgba(255,255,255,.72);
+  transform: perspective(1100px) rotateX(1.5deg) rotateY(-1.7deg) translateY(-7px) translateZ(12px);
+}
+.episode-card__art, .event-card, .chart-feature, .social-feed-card, .instagram-wall { transition: transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 300ms ease, border-color 260ms ease; }
+.episode-card__play, .show-card__glass, .presenter-card__reveal, .news-card__open,
+.event-card__copy, .chart-feature__copy { transform: translateZ(22px); }
+
+@media (max-width: 960px) {
+  .hero--immersive .immersive-radio-world { left: 28%; opacity: .7; }
+  .section--webgl .immersive-radio-world { left: 34%; opacity: .25; }
+}
+@media (max-width: 700px) {
+  .hero--immersive .immersive-radio-world { top: 36%; right: -34%; bottom: 0; left: 5%; opacity: .58; mask-image: radial-gradient(circle at 70% 58%, black, transparent 70%); }
+  .section--webgl .immersive-radio-world { top: 8%; left: 10%; opacity: .18; }
+  .advertise--webgl .immersive-radio-world { left: 5%; opacity: .2; }
+  .episode-card:hover .episode-card__art, .event-card:hover, .chart-feature:hover,
+  .social-feed-card:hover, .instagram-wall:hover { transform: translateY(-4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .immersive-radio-world { opacity: .28 !important; }
+}
