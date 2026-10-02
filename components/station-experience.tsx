@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import ImmersiveRadioEnvironment from './immersive-radio-environment';
 import { LiquidMorph, MorphingSignal, MorphingSpark } from './morphing-radio-graphics';
+import { AnimatedFlipbook, CinematicMotionLayer, StopMotionBadge } from './cinematic-motion-layer';
 import {
   ArrowDown,
   ArrowDownRight,
@@ -430,6 +431,7 @@ export default function StationExperience() {
 
   return (
     <main>
+      <CinematicMotionLayer />
       <audio
         ref={audioRef}
         preload="none"
@@ -509,6 +511,8 @@ export default function StationExperience() {
           </div>
 
           <div className="hero-visual" aria-label="Savanna FM on air presenter">
+            <AnimatedFlipbook />
+            <StopMotionBadge />
             <div className="hero-visual__sun" />
             <div className="hero-visual__frame">
               <Image src="/images/voice-red-dress.jpg" alt="Performer at a microphone in a Pexels studio photograph" fill sizes="(max-width: 700px) 78vw, (max-width: 960px) 40vw, 38vw" priority />
