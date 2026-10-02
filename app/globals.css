@@ -1323,7 +1323,6 @@ main {
   opacity: .23;
   mix-blend-mode: multiply;
 }
-.morphing-spark { width: 17px; height: 17px; flex: 0 0 auto; color: var(--orange); filter: drop-shadow(0 4px 8px rgba(33,99,79,.2)); }
 .morphing-signal { width: 82px; height: 21px; display: block; color: var(--orange); overflow: visible; }
 .player-bar--playing .morphing-signal { filter: drop-shadow(0 0 7px rgba(33,99,79,.28)); }
 
@@ -1377,7 +1376,6 @@ main {
 .motion-orb--two { right: -12%; bottom: 8%; width: 38vw; min-width: 360px; aspect-ratio: 1; background: radial-gradient(circle at 44% 40%, #fffbed, #91ab8d 52%, transparent 73%); }
 .motion-ribbon { position: absolute; width: max-content; color: rgba(33,99,79,.034); font-family: var(--font-display); font-size: clamp(70px, 12vw, 190px); font-weight: 750; letter-spacing: -.07em; line-height: .82; white-space: nowrap; }
 .motion-ribbon--one { top: 34%; left: 0; }
-.motion-ribbon--two { top: 72%; left: 0; }
 
 .site-loader { position: fixed; inset: 0; z-index: 150; display: flex; align-items: center; justify-content: center; flex-direction: column; background: radial-gradient(circle at 50% 43%, #ffffff, #edf2e8 55%, #dde8dc); color: #173c32; }
 .site-loader::before { position: absolute; inset: 0; background-image: radial-gradient(circle at 1px 1px, rgba(23,60,50,.1) 1px, transparent 0); background-size: 31px 31px; mask-image: radial-gradient(circle, black, transparent 72%); content: ''; }
@@ -1389,7 +1387,6 @@ main {
 .site-loader__copy span { margin-top: 5px; color: #61766d; font-size: 8px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .site-loader > i { position: relative; width: 170px; height: 2px; margin-top: 18px; background: linear-gradient(90deg, transparent, #21634f, transparent); transform-origin: left; }
 .page-transition { position: fixed; inset: 0; z-index: 110; display: grid; place-items: center; background: radial-gradient(circle, rgba(255,255,255,.98), rgba(191,210,194,.96)); pointer-events: none; }
-.page-transition span { display: grid; width: 65px; height: 65px; place-items: center; border: 1px solid rgba(33,99,79,.35); border-radius: 50%; color: #21634f; font-size: 25px; box-shadow: 0 20px 50px rgba(35,73,60,.18); }
 
 /* Section reveals communicate vertical progression. */
 .motion-section-ready { opacity: .001; transform: translateY(42px) scale(.992); transition: opacity .8s ease, transform 1s cubic-bezier(.22,1,.36,1); }
@@ -1421,9 +1418,6 @@ main {
 .animated-flipbook { position: absolute; right: -39px; bottom: 25%; z-index: 7; width: 87px; height: 61px; perspective: 500px; pointer-events: none; }
 .animated-flipbook > span { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid rgba(23,60,50,.18); border-radius: 6px; background: rgba(250,251,246,.94); color: #173c32; font-family: var(--font-display); font-size: 11px; font-weight: 750; letter-spacing: .06em; opacity: 0; box-shadow: 0 15px 35px rgba(37,73,61,.16); transform-origin: top; animation: flipbook-page 2.88s steps(1,end) infinite; }
 .animated-flipbook small { position: absolute; right: 0; bottom: -17px; color: #557068; font-size: 6px; font-weight: 800; letter-spacing: .14em; }
-.stop-motion-badge { position: absolute; top: 5%; right: 0; z-index: 7; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; flex-direction: column; border: 1px solid rgba(33,99,79,.34); border-radius: 50%; background: rgba(247,249,242,.84); color: #173c32; box-shadow: 0 13px 35px rgba(37,73,61,.15); transition: none; backdrop-filter: blur(9px); }
-.stop-motion-badge span { color: #21634f; font-size: 13px; line-height: 1; }
-.stop-motion-badge strong { margin-top: 3px; font-family: var(--font-display); font-size: 7px; letter-spacing: .1em; line-height: 1.2; text-align: center; }
 
 /* Tactile hover responses across links, controls and artwork. */
 .button, .text-link, .rail-controls button, .episode-card__play, .event-card__ticket,
@@ -1443,7 +1437,6 @@ main {
   .motion-ribbon { font-size: 76px; }
   .motion-orb { opacity: .08; }
   .animated-flipbook { right: -8px; bottom: 27%; transform: scale(.78); }
-  .stop-motion-badge { top: 2%; right: 4%; transform: scale(.78) !important; }
   .motion-section-ready { transform: translateY(25px); }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1453,3 +1446,12 @@ main {
   .social-feed-card, .instagram-wall, .request-modal, .player-bar, .animated-flipbook > span { animation: none !important; }
   .animated-flipbook > span:first-child { opacity: 1; }
 }
+
+/* Deliberately restrained motion hierarchy */
+.hero__rings { display: none; }
+.hero--immersive .hero__wave-field { opacity: .055; }
+.hero--immersive .immersive-radio-world { opacity: .7; }
+.liquid-morph--hero { opacity: .3; }
+.motion-ribbon { color: rgba(33,99,79,.022); }
+.section--webgl .immersive-radio-world { opacity: .24; }
+.frequency-strip__list span + span::before { width: 3px; height: 3px; display: inline-block; margin-right: clamp(12px,2vw,28px); border-radius: 50%; background: rgba(33,99,79,.42); content: ''; vertical-align: middle; }

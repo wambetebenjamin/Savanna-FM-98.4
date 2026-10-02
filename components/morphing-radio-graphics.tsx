@@ -57,26 +57,6 @@ export function LiquidMorph({ tone = 'sage', className = '' }: { tone?: MorphTon
   );
 }
 
-const sparkPaths = [
-  'M12 2 C14 8 16 10 22 12 C16 14 14 16 12 22 C10 16 8 14 2 12 C8 10 10 8 12 2 Z',
-  'M12 3 C18 3 21 7 21 12 C21 18 17 21 12 21 C6 21 3 17 3 12 C3 6 7 3 12 3 Z',
-  'M12 2 C15 7 20 7 22 12 C19 17 15 18 12 22 C8 19 5 17 2 12 C5 8 9 7 12 2 Z',
-  'M12 2 C14 8 16 10 22 12 C16 14 14 16 12 22 C10 16 8 14 2 12 C8 10 10 8 12 2 Z',
-];
-
-export function MorphingSpark() {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.svg className="morphing-spark" viewBox="0 0 24 24" aria-hidden="true" animate={reducedMotion ? undefined : { rotate: [0, 90, 180, 360] }} transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}>
-      <motion.path
-        d={sparkPaths[0]}
-        animate={reducedMotion ? undefined : { d: sparkPaths }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
-        fill="currentColor"
-      />
-    </motion.svg>
-  );
-}
 
 const signalPaths = [
   'M4 29 C12 7 25 7 34 29 C44 52 57 52 68 29 C80 5 94 7 104 29 C114 50 127 50 140 29 C152 9 166 8 176 29',

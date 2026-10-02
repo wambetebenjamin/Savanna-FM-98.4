@@ -4,8 +4,8 @@ import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import ImmersiveRadioEnvironment from './immersive-radio-environment';
-import { LiquidMorph, MorphingSignal, MorphingSpark } from './morphing-radio-graphics';
-import { AnimatedFlipbook, CinematicMotionLayer, StopMotionBadge } from './cinematic-motion-layer';
+import { LiquidMorph, MorphingSignal } from './morphing-radio-graphics';
+import { AnimatedFlipbook, CinematicMotionLayer } from './cinematic-motion-layer';
 import {
   ArrowDown,
   ArrowDownRight,
@@ -92,7 +92,6 @@ function Eyebrow({ children, number }: { children: React.ReactNode; number?: str
   return (
     <p className="eyebrow">
       {number && <span className="eyebrow__number">{number}</span>}
-      <MorphingSpark />
       {children}
     </p>
   );
@@ -512,7 +511,6 @@ export default function StationExperience() {
 
           <div className="hero-visual" aria-label="Savanna FM on air presenter">
             <AnimatedFlipbook />
-            <StopMotionBadge />
             <div className="hero-visual__sun" />
             <div className="hero-visual__frame">
               <Image src="/images/voice-red-dress.jpg" alt="Performer at a microphone in a Pexels studio photograph" fill sizes="(max-width: 700px) 78vw, (max-width: 960px) 40vw, 38vw" priority />
@@ -539,7 +537,7 @@ export default function StationExperience() {
         <div className="frequency-strip__inner">
           <span className="frequency-strip__label"><Radio size={17} /> THE FREQUENCY</span>
           <div className="frequency-strip__list">
-            <span>KENYAN MUSIC</span><i>✳</i><span>REAL TALK</span><i>✳</i><span>GLOBAL SOUNDS</span><i>✳</i><span>CITY STORIES</span><i>✳</i><span>GOOD ENERGY</span>
+            <span>KENYAN MUSIC</span><span>REAL TALK</span><span>GLOBAL SOUNDS</span><span>CITY STORIES</span><span>GOOD ENERGY</span>
           </div>
           <span className="frequency-strip__right">98.4 FM <span>↗</span></span>
         </div>
@@ -613,7 +611,7 @@ export default function StationExperience() {
               </Reveal>
             ))}
           </div>
-          <div className="presenter-footnote"><span className="presenter-footnote__spark">✳</span> THE VOICES OF YOUR CITY, EVERY DAY.</div>
+          <div className="presenter-footnote">THE VOICES OF YOUR CITY, EVERY DAY.</div>
         </div>
       </section>
 
@@ -699,7 +697,7 @@ export default function StationExperience() {
           <aside className="chart-feature">
             <div className="chart-feature__art"><Image src="/images/nairobi-crowd.jpg" alt="Audience lights at a live performance" fill sizes="(max-width: 700px) 100vw, 40vw" loading="lazy" /><div className="chart-feature__overlay" /><div className="chart-feature__circle">THE<br /><strong>10</strong><br />RIGHT<br />NOW</div><Waveform compact animated /></div>
             <div className="chart-feature__copy"><span>THE SAVANNA TOP 10</span><h3>Kenya, this one’s<br /><em>for you.</em></h3><p>A weekly snapshot of the sounds shaping the scene. What’s your number one?</p><button className="text-link" type="button" onClick={() => setRequestOpen(true)}>Make a song request <ArrowUpRight size={16} /></button></div>
-            <div className="chart-feature__foot"><span>CURATED IN NAIROBI</span><span>98.4 FM <i>✳</i></span></div>
+            <div className="chart-feature__foot"><span>CURATED IN NAIROBI</span><span>98.4 FM</span></div>
           </aside>
         </div>
       </section>
@@ -728,7 +726,7 @@ export default function StationExperience() {
               </Reveal>
             ))}
           </div>
-          <div className="events-note"><span>✳</span> WE’LL SAVE YOU A SPOT.</div>
+          <div className="events-note">WE’LL SAVE YOU A SPOT.</div>
         </div>
       </section>
 
@@ -749,7 +747,7 @@ export default function StationExperience() {
           </Reveal>
           <div className="advertise__graphic" aria-hidden="true">
             <div className="advertise__orbit advertise__orbit--one" /><div className="advertise__orbit advertise__orbit--two" />
-            <div className="advertise__disc"><span>YOUR<br /><strong>BRAND</strong><br />HERE</span><i>✳</i></div>
+            <div className="advertise__disc"><span>YOUR<br /><strong>BRAND</strong><br />HERE</span></div>
             <div className="advertise__graphic-label">REACH<br />THE WHOLE<br />CITY.</div>
             <div className="advertise__graphic-small">98.4<br />FM</div>
           </div>
@@ -804,7 +802,7 @@ export default function StationExperience() {
             <div className="site-footer__column"><span className="site-footer__label">SAY HELLO</span><a href="mailto:hello@savannafm.co.ke">hello@savannafm.co.ke</a><a href="mailto:partnerships@savannafm.co.ke">Advertise with us</a><a href="tel:+254112272061">+254 112 272 061</a></div>
             <div className="site-footer__column site-footer__social"><span className="site-footer__label">FIND YOUR PEOPLE</span><div><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={16} /></a><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><Facebook size={16} /></a><a href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="YouTube"><Youtube size={17} /></a><a href="https://x.com/" target="_blank" rel="noreferrer" aria-label="X"><span>𝕏</span></a></div><span className="site-footer__location"><MapPin size={13} /> NAIROBI, KENYA</span></div>
           </div>
-          <div className="site-footer__bottom"><span>© 2026 SAVANNA FM 98.4 · ALL RIGHTS RESERVED</span><span>MADE FOR THE FREQUENCY OF HERE <i>✳</i></span><a href="#home">BACK TO TOP <ArrowUpRight size={13} /></a></div>
+          <div className="site-footer__bottom"><span>© 2026 SAVANNA FM 98.4 · ALL RIGHTS RESERVED</span><span>MADE FOR THE FREQUENCY OF HERE</span><a href="#home">BACK TO TOP <ArrowUpRight size={13} /></a></div>
         </div>
       </footer>
 

@@ -9,7 +9,6 @@ export function CinematicMotionLayer() {
   const [transitioning, setTransitioning] = useState(false);
   const { scrollYProgress } = useScroll();
   const ribbonForward = useTransform(scrollYProgress, [0, 1], ['4%', '-42%']);
-  const ribbonReverse = useTransform(scrollYProgress, [0, 1], ['-38%', '2%']);
   const orbShift = useTransform(scrollYProgress, [0, 1], ['0vh', '34vh']);
   const orbReverse = useTransform(scrollYProgress, [0, 1], ['18vh', '-22vh']);
 
@@ -61,8 +60,7 @@ export function CinematicMotionLayer() {
       <div className="motion-background" aria-hidden="true">
         <motion.span className="motion-orb motion-orb--one" style={{ y: orbShift }} />
         <motion.span className="motion-orb motion-orb--two" style={{ y: orbReverse }} />
-        <motion.div className="motion-ribbon motion-ribbon--one" style={{ x: ribbonForward }}>SAVANNA&nbsp;&nbsp; SOUND&nbsp;&nbsp; NAIROBI&nbsp;&nbsp; 98.4&nbsp;&nbsp; LIVE&nbsp;&nbsp; SAVANNA&nbsp;&nbsp; SOUND</motion.div>
-        <motion.div className="motion-ribbon motion-ribbon--two" style={{ x: ribbonReverse }}>MUSIC&nbsp;&nbsp; CULTURE&nbsp;&nbsp; STORIES&nbsp;&nbsp; PEOPLE&nbsp;&nbsp; EAST AFRICA&nbsp;&nbsp; MUSIC</motion.div>
+        <motion.div className="motion-ribbon motion-ribbon--one" style={{ x: ribbonForward }}>SAVANNA&nbsp;&nbsp; SOUND&nbsp;&nbsp; NAIROBI&nbsp;&nbsp; 98.4&nbsp;&nbsp; LIVE</motion.div>
       </div>
 
       <AnimatePresence>
@@ -79,37 +77,13 @@ export function CinematicMotionLayer() {
 
       <AnimatePresence>
         {transitioning && (
-          <motion.div className="page-transition" initial={{ clipPath: 'circle(0% at 50% 50%)' }} animate={{ clipPath: 'circle(78% at 50% 50%)' }} exit={{ clipPath: 'circle(0% at 50% 50%)' }} transition={{ duration: .38, ease: [0.76, 0, 0.24, 1] }} aria-hidden="true">
-            <motion.span animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 180] }} transition={{ duration: .75 }}>✦</motion.span>
-          </motion.div>
+          <motion.div className="page-transition" initial={{ clipPath: 'circle(0% at 50% 50%)' }} animate={{ clipPath: 'circle(78% at 50% 50%)' }} exit={{ clipPath: 'circle(0% at 50% 50%)' }} transition={{ duration: .38, ease: [0.76, 0, 0.24, 1] }} aria-hidden="true" />
         )}
       </AnimatePresence>
     </>
   );
 }
 
-const stopFrames = [
-  { symbol: '●', x: -3, y: 1, rotate: -5 },
-  { symbol: '◉', x: 2, y: -2, rotate: 4 },
-  { symbol: '✦', x: -1, y: 2, rotate: -3 },
-  { symbol: '◉', x: 3, y: 0, rotate: 5 },
-];
-
-export function StopMotionBadge() {
-  const reducedMotion = useReducedMotion();
-  const [frame, setFrame] = useState(0);
-  useEffect(() => {
-    if (reducedMotion) return;
-    const timer = window.setInterval(() => setFrame((value) => (value + 1) % stopFrames.length), 190);
-    return () => window.clearInterval(timer);
-  }, [reducedMotion]);
-  const current = stopFrames[frame];
-  return (
-    <div className="stop-motion-badge" aria-hidden="true" style={{ transform: `translate(${current.x}px, ${current.y}px) rotate(${current.rotate}deg)` }}>
-      <span>{current.symbol}</span><strong>LIVE<br />MOTION</strong>
-    </div>
-  );
-}
 
 export function AnimatedFlipbook() {
   const pages = ['98.4 FM', 'ON AIR', 'NAIROBI', 'SOUND'];
