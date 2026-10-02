@@ -16,7 +16,7 @@
     "name": "The Midday Mix",
     "host": "Nia Wambui",
     "days": "Mon to Fri",
-    "description": "Your desk-side soundtrack: new drops, good stories, zero skips.",
+    "description": "Your desk side soundtrack: new drops, good stories, zero skips.",
     "tag": "MUSIC + CULTURE",
     "image": "/images/voice-studio-female.jpg",
     "tone": "violet"
@@ -33,7 +33,7 @@
     "tone": "amber"
   },
   {
-    "id": "late-night",
+    "id": "late night",
     "time": "20:00 TO 00:00",
     "name": "After Hours",
     "host": "DJ Soko",

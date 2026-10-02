@@ -406,14 +406,14 @@ export default function StationExperience() {
       const result = await response.json();
       if (!response.ok) {
         setNewsletterState('idle');
-        showToast(result.error || 'Newsletter sign-up is not connected yet.');
+        showToast(result.error || 'Newsletter signup is not connected yet.');
         return;
       }
       setNewsletterState('done');
       showToast('You are on the list. See you in your inbox.');
     } catch {
       setNewsletterState('idle');
-      showToast('Newsletter sign-up is temporarily unavailable. Email hello@savannafm.co.ke.');
+      showToast('Newsletter signup is temporarily unavailable. Email hello@savannafm.co.ke.');
     }
   };
 
@@ -504,7 +504,7 @@ export default function StationExperience() {
             </div>
           </div>
 
-          <div className="hero-visual" aria-label="Savanna FM on-air presenter">
+          <div className="hero-visual" aria-label="Savanna FM on air presenter">
             <div className="hero-visual__sun" />
             <div className="hero-visual__frame">
               <Image src="/images/voice-red-dress.jpg" alt="Performer at a microphone in a Pexels studio photograph" fill sizes="(max-width: 700px) 78vw, (max-width: 960px) 40vw, 38vw" priority />
@@ -821,7 +821,7 @@ export default function StationExperience() {
           <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={(event) => { if (event.target === event.currentTarget) resetRequest(); }}>
             <motion.div className="request-modal" role="dialog" aria-modal="true" aria-labelledby="request-title" initial={{ opacity: 0, y: 24, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.98 }} transition={{ duration: 0.22 }}>
               <button className="request-modal__close" type="button" onClick={resetRequest} aria-label="Close request form"><X size={19} /></button>
-              <span className="request-modal__eyebrow"><span className="on-air-dot" /> DIRECT TO THE STUDIO</span>
+              <span className="request-modal__eyebrow"><span className="on air-dot" /> DIRECT TO THE STUDIO</span>
               <h2 id="request-title">Make it<br /><em>your song.</em></h2>
               <p>Tell us what you want to hear, who it’s for, and we’ll pass it on to the team.</p>
               {requestState === 'sent' ? (

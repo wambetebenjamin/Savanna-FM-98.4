@@ -66,7 +66,7 @@ const podcastSchema = {
   '@type': 'PodcastSeries',
   name: 'Savanna Sounds',
   url: `${siteUrl}/#podcasts`,
-  description: 'On-demand conversations, music sessions, and city stories from Savanna FM 98.4 in Nairobi.',
+  description: 'On demand conversations, music sessions, and city stories from Savanna FM 98.4 in Nairobi.',
   webFeed: `${siteUrl}/api/podcasts`,
   inLanguage: 'en-KE',
   author: { '@type': 'Organization', name: 'Savanna FM 98.4', url: siteUrl },
