@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { podcasts } from '../lib/content';
 import ServiceWorkerRegistration from '../components/service-worker-registration';
 import './globals.css';
+import './directory.css';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://savannafm.co.ke';
 
