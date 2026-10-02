@@ -1,4 +1,5 @@
 @import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/nunito/wght.css';
 @import '@fontsource-variable/space-grotesk/wght.css';
 
 :root {
@@ -1455,3 +1456,21 @@ main {
 .motion-ribbon { color: rgba(33,99,79,.022); }
 .section--webgl .immersive-radio-world { opacity: .24; }
 .frequency-strip__list span + span::before { width: 3px; height: 3px; display: inline-block; margin-right: clamp(12px,2vw,28px); border-radius: 50%; background: rgba(33,99,79,.42); content: ''; vertical-align: middle; }
+
+/* Editorial section heading specification */
+.section-heading h2 {
+  display: block;
+  width: min(100%, 601px);
+  max-width: 601px;
+  margin: 55px 0 20px -1px;
+  font-family: 'Nunito Variable', Nunito, sans-serif;
+  font-size: 41px;
+  font-weight: 900;
+  letter-spacing: normal;
+  line-height: 57.4px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  scroll-margin-top: 80px;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

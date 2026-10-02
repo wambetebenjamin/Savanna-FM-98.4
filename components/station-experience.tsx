@@ -548,7 +548,7 @@ export default function StationExperience() {
           <div className="section-heading section-heading--split">
             <div>
               <Eyebrow number="01">ON THE FREQUENCY</Eyebrow>
-              <h2>Find your<br /><em>frequency.</em></h2>
+              <h2>Find your <em>frequency.</em></h2>
             </div>
             <div className="section-heading__aside">
               <p>Whatever the hour, there is a voice, a beat, and a whole lot of Nairobi waiting for you.</p>
@@ -582,7 +582,7 @@ export default function StationExperience() {
             <div className="section-heading section-heading--split section-heading--presenters">
               <div>
                 <Eyebrow number="02">THE PEOPLE BEHIND THE MIC</Eyebrow>
-                <h2>Voices that<br /><em>feel like home.</em></h2>
+                <h2>Voices that <em>feel like home.</em></h2>
               </div>
               <div className="section-heading__aside">
                 <p>Big personalities. Bigger playlists. Meet the people bringing Nairobi into every room.</p>
@@ -620,7 +620,7 @@ export default function StationExperience() {
           <div className="section-heading section-heading--split">
             <div>
               <Eyebrow number="03">THE LATEST FREQUENCY</Eyebrow>
-              <h2>More than<br /><em>just the music.</em></h2>
+              <h2>More than <em>just the music.</em></h2>
             </div>
             <div className="section-heading__aside">
               <p>Local voices, culture, sport and the stories moving East Africa right now.</p>
@@ -646,7 +646,7 @@ export default function StationExperience() {
             <div className="section-heading section-heading--split">
               <div>
                 <Eyebrow number="04">SOUND THAT STAYS WITH YOU</Eyebrow>
-                <h2>On demand.<br /><em>On your time.</em></h2>
+                <h2>On demand. <em>On your time.</em></h2>
               </div>
               <div className="section-heading__aside">
                 <p>Conversations worth replaying, mixes worth keeping, and the shows you missed.</p>
@@ -671,7 +671,7 @@ export default function StationExperience() {
           <div className="section-heading section-heading--split">
             <div>
               <Eyebrow number="05">THE SOUND OF RIGHT NOW</Eyebrow>
-              <h2>Ten tracks.<br /><em>One heartbeat.</em></h2>
+              <h2>Ten tracks. <em>One heartbeat.</em></h2>
             </div>
             <div className="section-heading__aside">
               <p>The tracks we cannot stop playing, selected by our music team and the people who listen.</p>
@@ -708,7 +708,7 @@ export default function StationExperience() {
             <div className="section-heading section-heading--split">
               <div>
                 <Eyebrow number="06">MEET US OUT THERE</Eyebrow>
-                <h2>Good sound.<br /><em>Better company.</em></h2>
+                <h2>Good sound. <em>Better company.</em></h2>
               </div>
               <div className="section-heading__aside">
                 <p>From the airwaves to the dance floor. Pull up and be part of the story.</p>
@@ -759,7 +759,7 @@ export default function StationExperience() {
           <div className="section-heading section-heading--split">
             <div>
               <Eyebrow number="08">OUT IN THE WORLD</Eyebrow>
-              <h2>Join the<br /><em>conversation.</em></h2>
+              <h2>Join the <em>conversation.</em></h2>
             </div>
             <div className="section-heading__aside"><p>From the booth to the timeline. Tag your moment with <strong>#SavannaOnAir</strong>.</p><a className="text-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">Follow along <ArrowUpRight size={16} /></a></div>
           </div>
