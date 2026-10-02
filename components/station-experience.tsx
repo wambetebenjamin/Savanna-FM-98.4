@@ -26,10 +26,10 @@ import {
   Minus,
   Music2,
   Pause,
+  Palette,
   Play,
   Radio,
   Send,
-  Sparkles,
   Ticket,
   TrendingDown,
   TrendingUp,
@@ -148,7 +148,7 @@ function NewsCategoryIcon({ tone }: { tone: string }) {
   if (tone === 'music') return <Music2 size={11} />;
   if (tone === 'city') return <MapPin size={11} />;
   if (tone === 'sport') return <TrendingUp size={11} />;
-  return <Sparkles size={11} />;
+  return <Palette size={11} />;
 }
 
 function NewsCard({ item, index }: { item: NewsItem; index: number }) {
@@ -798,7 +798,7 @@ export default function StationExperience() {
 
       <section className="newsletter" id="newsletter">
         <div className="page-shell newsletter__inner">
-          <div className="newsletter__copy"><span className="newsletter__icon"><Sparkles size={17} /></span><div><span className="eyebrow">THE WEEKLY FREQUENCY</span><h2>Good music. <em>In your inbox.</em></h2><p>Our playlist, new stories, and things to do around the city. No noise.</p></div></div>
+          <div className="newsletter__copy"><span className="newsletter__icon"><Mail size={17} /></span><div><span className="eyebrow">THE WEEKLY FREQUENCY</span><h2>Good music. <em>In your inbox.</em></h2><p>Our playlist, new stories, and things to do around the city. No noise.</p></div></div>
           <form className="newsletter__form" onSubmit={handleNewsletter}>
             <label className="sr-only" htmlFor="newsletter-email">Your email address</label>
             <input id="newsletter-email" type="email" placeholder="Your email address" value={newsletterEmail} onChange={(event) => setNewsletterEmail(event.target.value)} required disabled={newsletterState !== 'idle'} />

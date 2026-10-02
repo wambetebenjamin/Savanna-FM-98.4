@@ -115,7 +115,7 @@ function BroadcastRings({ reducedMotion }: { reducedMotion: boolean }) {
         </mesh>
       ))}
       <mesh>
-        <icosahedronGeometry args={[.48, 4]} />
+        <sphereGeometry args={[.48, 48, 48]} />
         <meshPhysicalMaterial color="#5cab43" roughness={.12} metalness={.34} transmission={.18} clearcoat={1} clearcoatRoughness={.16} />
       </mesh>
     </group>
