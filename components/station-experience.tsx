@@ -4,6 +4,7 @@ import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import ImmersiveRadioEnvironment from './immersive-radio-environment';
+import { LiquidMorph, MorphingSignal, MorphingSpark } from './morphing-radio-graphics';
 import {
   ArrowDown,
   ArrowDownRight,
@@ -90,7 +91,7 @@ function Eyebrow({ children, number }: { children: React.ReactNode; number?: str
   return (
     <p className="eyebrow">
       {number && <span className="eyebrow__number">{number}</span>}
-      <span className="eyebrow__line" />
+      <MorphingSpark />
       {children}
     </p>
   );
@@ -467,6 +468,7 @@ export default function StationExperience() {
       </header>
 
       <section className="hero hero--immersive" id="home">
+        <LiquidMorph tone="cream" className="liquid-morph--hero" />
         <ImmersiveRadioEnvironment variant="studio" />
         <div className="hero__texture" aria-hidden="true" />
         <div className="hero__wave-field" aria-hidden="true"><Waveform animated /></div>
@@ -634,7 +636,8 @@ export default function StationExperience() {
         <div className="section-bottom-link"><span>STAY CURIOUS. STAY CONNECTED.</span><a className="text-link" href="#social">Find us on socials <ArrowUpRight size={16} /></a></div>
       </section>
 
-      <section className="section section--podcasts section--webgl" id="podcasts">
+      <section className="section section--podcasts section--webgl section--morphing" id="podcasts">
+        <LiquidMorph tone="sage" className="liquid-morph--section" />
         <ImmersiveRadioEnvironment variant="archive" />
         <div className="page-shell">
           <Reveal>
@@ -660,7 +663,8 @@ export default function StationExperience() {
         </div>
       </section>
 
-      <section className="section section--charts page-shell" id="charts">
+      <section className="section section--charts section--morphing page-shell" id="charts">
+        <LiquidMorph tone="cream" className="liquid-morph--section liquid-morph--reverse" />
         <Reveal>
           <div className="section-heading section-heading--split">
             <div>
@@ -724,7 +728,8 @@ export default function StationExperience() {
         </div>
       </section>
 
-      <section className="advertise advertise--webgl" id="advertise">
+      <section className="advertise advertise--webgl section--morphing" id="advertise">
+        <LiquidMorph tone="forest" className="liquid-morph--advertise" />
         <ImmersiveRadioEnvironment variant="signal" />
         <div className="advertise__noise" aria-hidden="true" />
         <div className="page-shell advertise__inner">
@@ -813,7 +818,7 @@ export default function StationExperience() {
             <button className="player-main-button" type="button" onClick={toggleLive} aria-label={playing ? 'Pause stream' : 'Play stream'}>
               {loading ? <span className="player-spinner" /> : playing ? <Pause size={17} fill="currentColor" /> : <Play size={17} fill="currentColor" />}
             </button>
-            <div className="player-controls__meta"><div className="player-status"><span className={playing ? 'player-status__dot player-status__dot--live' : 'player-status__dot'} />{playing ? 'LIVE ON AIR' : 'READY WHEN YOU ARE'}</div><Waveform compact animated={playing} /></div>
+            <div className="player-controls__meta"><div className="player-status"><span className={playing ? 'player-status__dot player-status__dot--live' : 'player-status__dot'} />{playing ? 'LIVE ON AIR' : 'READY WHEN YOU ARE'}</div><MorphingSignal /></div>
           </div>
           <div className="player-volume"><button type="button" aria-label={muted ? 'Unmute' : 'Mute'} onClick={() => setMuted((state) => !state)}>{muted || volume === 0 ? <VolumeX size={17} /> : <Volume2 size={17} />}</button><input aria-label="Volume" type="range" min="0" max="1" step="0.01" value={muted ? 0 : volume} onChange={(event) => { setVolume(Number(event.target.value)); setMuted(false); }} style={{ '--volume-fill': `${(muted ? 0 : volume) * 100}%` } as React.CSSProperties} /></div>
           <button className="player-request" type="button" onClick={() => { setRequestOpen(true); setRequestState('idle'); }}><span className="player-request__icon"><Mic size={15} /></span><span>Request a song</span><ArrowUpRight size={15} /></button>

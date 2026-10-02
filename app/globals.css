@@ -1285,3 +1285,76 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .immersive-radio-world { opacity: .28 !important; }
 }
+
+/* Liquid SVG morphing and fast paced signal graphics */
+.liquid-morph {
+  position: absolute;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.liquid-morph svg { width: 100%; height: 100%; display: block; }
+.liquid-morph--hero {
+  right: -8%;
+  bottom: -8%;
+  left: -8%;
+  height: 58%;
+  opacity: .48;
+  transform: translateZ(0);
+}
+.section--morphing { position: relative; isolation: isolate; overflow: hidden; }
+.section--morphing > :not(.liquid-morph):not(.immersive-radio-world) { position: relative; z-index: 2; }
+.liquid-morph--section {
+  top: 7%;
+  right: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 54%;
+  opacity: .26;
+  transform: translateX(-50%) rotate(180deg);
+  mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+}
+.liquid-morph--reverse { top: auto; bottom: -3%; opacity: .22; transform: translateX(-50%); }
+.liquid-morph--advertise {
+  right: -4%;
+  bottom: -22%;
+  left: -4%;
+  height: 92%;
+  opacity: .23;
+  mix-blend-mode: multiply;
+}
+.morphing-spark { width: 17px; height: 17px; flex: 0 0 auto; color: var(--orange); filter: drop-shadow(0 4px 8px rgba(33,99,79,.2)); }
+.morphing-signal { width: 82px; height: 21px; display: block; color: var(--orange); overflow: visible; }
+.player-bar--playing .morphing-signal { filter: drop-shadow(0 0 7px rgba(33,99,79,.28)); }
+
+/* Morphing surfaces bridge sections instead of relying on hard visual cuts. */
+.section--podcasts::before, .section--charts::before, .advertise--webgl::after {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: 44px;
+  content: '';
+  pointer-events: none;
+}
+.section--podcasts::before, .section--charts::before {
+  top: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.5), transparent);
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 34 C180 84 330 2 515 35 C700 70 900 4 1200 42 L1200 0 L0 0 Z' fill='black'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+}
+.advertise--webgl::after {
+  top: -1px;
+  background: rgba(247,245,237,.76);
+  clip-path: polygon(0 0,100% 0,100% 15%,88% 62%,72% 28%,57% 74%,39% 25%,20% 67%,0 22%);
+}
+
+@media (max-width: 700px) {
+  .liquid-morph--hero { bottom: 0; height: 43%; opacity: .36; }
+  .liquid-morph--section { top: 2%; height: 37%; opacity: .2; }
+  .liquid-morph--advertise { height: 65%; opacity: .17; }
+  .morphing-spark { width: 14px; height: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .liquid-morph { opacity: .14 !important; }
+}
