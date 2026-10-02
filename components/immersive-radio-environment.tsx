@@ -51,7 +51,7 @@ function VinylSculpture({ reducedMotion }: { reducedMotion: boolean }) {
       {[1.48, 1.25, 1.02, 0.78].map((radius) => (
         <mesh key={radius} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, .08]}>
           <torusGeometry args={[radius, 0.012, 8, 100]} />
-          <meshStandardMaterial color="#4de9d4" metalness={0.7} roughness={0.25} transparent opacity={0.46} />
+          <meshStandardMaterial color="#b6ff3b" metalness={0.7} roughness={0.25} transparent opacity={0.46} />
         </mesh>
       ))}
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, .11]}>
@@ -60,7 +60,7 @@ function VinylSculpture({ reducedMotion }: { reducedMotion: boolean }) {
       </mesh>
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, .15]}>
         <cylinderGeometry args={[0.11, 0.11, 0.08, 40]} />
-        <meshStandardMaterial color="#8b5cff" metalness={0.8} roughness={0.18} />
+        <meshStandardMaterial color="#4f9d3a" metalness={0.8} roughness={0.18} />
       </mesh>
       <mesh position={[1.65, 0.85, .25]} rotation={[0, 0, -.58]} castShadow>
         <boxGeometry args={[1.5, 0.065, 0.08]} />
@@ -92,7 +92,7 @@ function SignalBars({ reducedMotion, position = [-2.8, -1.5, -0.8] as [number, n
       {bars.map((height, index) => (
         <mesh key={index} position={[index * .16, height / 2, Math.sin(index * .4) * .16]} castShadow>
           <boxGeometry args={[.055, height, .055]} />
-          <meshStandardMaterial color={index % 4 === 0 ? '#a58bff' : '#35e6d1'} emissive="#204ee8" emissiveIntensity={0.18} metalness={0.58} roughness={0.28} />
+          <meshStandardMaterial color={index % 4 === 0 ? '#8bd85d' : '#b6ff3b'} emissive="#438d39" emissiveIntensity={0.18} metalness={0.58} roughness={0.28} />
         </mesh>
       ))}
     </group>
@@ -111,12 +111,12 @@ function BroadcastRings({ reducedMotion }: { reducedMotion: boolean }) {
       {[.7, 1.15, 1.62, 2.08].map((radius, index) => (
         <mesh key={radius} rotation={[index % 2 ? .9 : .35, index * .32, 0]}>
           <torusGeometry args={[radius, index === 0 ? .045 : .018, 12, 100]} />
-          <meshStandardMaterial color={index === 0 ? '#dfe7ff' : '#48dcca'} metalness={.7} roughness={.2} transparent opacity={.68 - index * .09} />
+          <meshStandardMaterial color={index === 0 ? '#dfe7ff' : '#8ee95d'} metalness={.7} roughness={.2} transparent opacity={.68 - index * .09} />
         </mesh>
       ))}
       <mesh>
         <icosahedronGeometry args={[.48, 4]} />
-        <meshPhysicalMaterial color="#8365e8" roughness={.12} metalness={.34} transmission={.18} clearcoat={1} clearcoatRoughness={.16} />
+        <meshPhysicalMaterial color="#5cab43" roughness={.12} metalness={.34} transmission={.18} clearcoat={1} clearcoatRoughness={.16} />
       </mesh>
     </group>
   );
@@ -151,14 +151,14 @@ function RadioWorld({ variant, reducedMotion }: { variant: EnvironmentVariant; r
       <fog attach="fog" args={['#090b10', 7, 15]} />
       <ambientLight intensity={1.55} />
       <directionalLight position={[-4, 5, 5]} intensity={2.6} color="#eefaff" castShadow />
-      <pointLight position={[3.5, 1.2, 3]} intensity={18} distance={8} color="#35e6d1" />
-      <pointLight position={[-3, -1, 2]} intensity={10} distance={7} color="#8b5cff" />
+      <pointLight position={[3.5, 1.2, 3]} intensity={18} distance={8} color="#b6ff3b" />
+      <pointLight position={[-3, -1, 2]} intensity={10} distance={7} color="#4f9d3a" />
       <group ref={world} scale={variant === 'studio' ? 1 : .88}>
         {variant === 'studio' && <VinylSculpture reducedMotion={reducedMotion} />}
         {variant === 'archive' && <BroadcastRings reducedMotion={reducedMotion} />}
         {variant === 'signal' && <BroadcastRings reducedMotion={reducedMotion} />}
         <SignalBars reducedMotion={reducedMotion} position={variant === 'studio' ? [-2.8, -1.5, -.8] : [-2.4, -1.6, -1.5]} />
-        <FloatingDust color={variant === 'studio' ? '#35e6d1' : '#9a7cff'} />
+        <FloatingDust color={variant === 'studio' ? '#b6ff3b' : '#8fdc61'} />
       </group>
     </>
   );
