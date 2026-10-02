@@ -1958,3 +1958,32 @@ body { font-size: 16px; }
   .section-backdrop img { opacity: .44; }
   .section-backdrop > span { background: linear-gradient(90deg, rgba(8,11,9,.94), rgba(8,11,9,.58)), linear-gradient(180deg, rgba(8,11,9,.7), transparent 30%, rgba(8,11,9,.84)); }
 }
+
+/* Increased photographic presence while preserving text contrast. */
+.section-backdrop img,
+.section--shows .section-backdrop img,
+.section--presenters .section-backdrop img,
+.section--podcasts .section-backdrop img,
+.section--charts .section-backdrop img,
+.section--events .section-backdrop img,
+.section--news .section-backdrop img,
+.section--social .section-backdrop img {
+  filter: grayscale(.06) saturate(1.04) contrast(1.08);
+  opacity: .7;
+}
+.section-backdrop > span {
+  background:
+    linear-gradient(90deg, rgba(8,11,9,.94) 0%, rgba(8,11,9,.74) 30%, rgba(8,11,9,.3) 68%, rgba(8,11,9,.44) 100%),
+    linear-gradient(180deg, rgba(8,11,9,.62), transparent 24%, transparent 72%, rgba(8,11,9,.72));
+}
+@media (max-width: 700px) {
+  .section-backdrop img,
+  .section--shows .section-backdrop img,
+  .section--presenters .section-backdrop img,
+  .section--podcasts .section-backdrop img,
+  .section--charts .section-backdrop img,
+  .section--events .section-backdrop img,
+  .section--news .section-backdrop img,
+  .section--social .section-backdrop img { opacity: .6; }
+  .section-backdrop > span { background: linear-gradient(90deg, rgba(8,11,9,.88), rgba(8,11,9,.42)), linear-gradient(180deg, rgba(8,11,9,.56), transparent 30%, rgba(8,11,9,.7)); }
+}
