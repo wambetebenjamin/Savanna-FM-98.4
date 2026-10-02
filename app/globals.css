@@ -1671,3 +1671,33 @@ body {
 .advertise__copy h2 em { color: #d3ff79; text-shadow: 0 0 28px rgba(182,255,59,.18); }
 .motion-orb--one { background: radial-gradient(circle at 34% 30%, #b6ff3b, #397d32 55%, transparent 72%); }
 .motion-orb--two { background: radial-gradient(circle at 44% 40%, #72c34e, #264d29 52%, transparent 73%); }
+
+/* Every destination has its own transition language. */
+.page-transition--home { background: radial-gradient(circle, #1d2c1b, #090c0a 72%); }
+.page-transition--shows { background: linear-gradient(110deg, #0a0d0a, #1a2918 58%, #b6ff3b 180%); }
+.page-transition--presenters { background: radial-gradient(circle at 18% 50%, rgba(182,255,59,.34), #152014 37%, #090c0a 76%); }
+.page-transition--news { background: linear-gradient(128deg, #b6ff3b -90%, #182517 30%, #090c0a 76%); }
+.page-transition--podcasts { background: linear-gradient(0deg, #090c0a, #1d311a 58%, #4f9d3a 150%); }
+.page-transition--charts { background: radial-gradient(ellipse, rgba(182,255,59,.22), #101810 48%, #090c0a 78%); }
+.page-transition--events { background: linear-gradient(90deg, #090c0a, #253721 50%, #090c0a); }
+.page-transition--advertise { background: linear-gradient(135deg, #10180f, #36522c 54%, #0a0d0a); }
+.page-transition--social { background: linear-gradient(105deg, #090c0a, #1f321d 52%, #b6ff3b 190%); }
+
+.motion-section-ready.motion-section-style-0 { transform: translateY(44px); }
+.motion-section-ready.motion-section-style-1 { transform: translateX(-46px); }
+.motion-section-ready.motion-section-style-2 { transform: translateX(46px); }
+.motion-section-ready.motion-section-style-3 { filter: blur(13px); transform: scale(.965); }
+.motion-section-ready.motion-section-style-4 { clip-path: inset(12% 0 12% 0 round 18px); transform: scale(.98); }
+.motion-section-ready.motion-section-visible { filter: blur(0); clip-path: inset(0 0 0 0 round 0); transform: translate3d(0,0,0) scale(1); }
+
+@media (max-width: 700px) {
+  .motion-section-ready.motion-section-style-1 { transform: translateX(-24px); }
+  .motion-section-ready.motion-section-style-2 { transform: translateX(24px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-section-ready.motion-section-style-0,
+  .motion-section-ready.motion-section-style-1,
+  .motion-section-ready.motion-section-style-2,
+  .motion-section-ready.motion-section-style-3,
+  .motion-section-ready.motion-section-style-4 { filter: none; clip-path: none; transform: none; }
+}

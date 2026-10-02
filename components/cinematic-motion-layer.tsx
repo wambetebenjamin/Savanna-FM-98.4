@@ -3,10 +3,26 @@
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
+type TransitionName = 'home' | 'shows' | 'presenters' | 'news' | 'podcasts' | 'charts' | 'events' | 'advertise' | 'social' | 'default';
+
+const transitionPresets = {
+  home: { initial: { clipPath: 'circle(0% at 50% 50%)' }, animate: { clipPath: 'circle(78% at 50% 50%)' }, exit: { clipPath: 'circle(0% at 50% 50%)' } },
+  shows: { initial: { x: '-100%' }, animate: { x: '0%' }, exit: { x: '100%' } },
+  presenters: { initial: { clipPath: 'circle(0% at 18% 50%)' }, animate: { clipPath: 'circle(112% at 18% 50%)' }, exit: { clipPath: 'circle(0% at 82% 50%)' } },
+  news: { initial: { clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)' }, animate: { clipPath: 'polygon(0 0, 118% 0, 100% 100%, 0 100%)' }, exit: { clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' } },
+  podcasts: { initial: { y: '100%' }, animate: { y: '0%' }, exit: { y: '-100%' } },
+  charts: { initial: { opacity: 0, scale: .82, filter: 'blur(22px)' }, animate: { opacity: 1, scale: 1, filter: 'blur(0px)' }, exit: { opacity: 0, scale: 1.12, filter: 'blur(18px)' } },
+  events: { initial: { clipPath: 'inset(50% 0 50% 0)' }, animate: { clipPath: 'inset(0% 0 0% 0)' }, exit: { clipPath: 'inset(0 50% 0 50%)' } },
+  advertise: { initial: { scaleX: 0, transformOrigin: 'center' }, animate: { scaleX: 1 }, exit: { scaleX: 0, transformOrigin: 'right' } },
+  social: { initial: { x: '100%', skewX: '-8deg' }, animate: { x: '0%', skewX: '0deg' }, exit: { x: '-100%', skewX: '8deg' } },
+  default: { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } },
+} as const;
+
 export function CinematicMotionLayer() {
   const reducedMotion = useReducedMotion();
   const [loading, setLoading] = useState(true);
   const [transitioning, setTransitioning] = useState(false);
+  const [transitionName, setTransitionName] = useState<TransitionName>('default');
   const { scrollYProgress } = useScroll();
   const ribbonForward = useTransform(scrollYProgress, [0, 1], ['4%', '-42%']);
   const orbShift = useTransform(scrollYProgress, [0, 1], ['0vh', '34vh']);
@@ -19,7 +35,7 @@ export function CinematicMotionLayer() {
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll<HTMLElement>('.section, .advertise, .newsletter, .frequency-strip'));
-    sections.forEach((section) => section.classList.add('motion-section-ready'));
+    sections.forEach((section, index) => section.classList.add('motion-section-ready', `motion-section-style-${index % 5}`));
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) entry.target.classList.add('motion-section-visible');
@@ -40,12 +56,14 @@ export function CinematicMotionLayer() {
       const target = document.querySelector<HTMLElement>(href);
       if (!target) return;
       event.preventDefault();
+      const destination = href.slice(1) as TransitionName;
+      setTransitionName(destination in transitionPresets ? destination : 'default');
       setTransitioning(true);
       timers.push(window.setTimeout(() => {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         window.history.replaceState(null, '', href);
-      }, 240));
-      timers.push(window.setTimeout(() => setTransitioning(false), 820));
+      }, 300));
+      timers.push(window.setTimeout(() => setTransitioning(false), 880));
     };
     document.addEventListener('click', handleAnchor);
     return () => {
@@ -53,6 +71,8 @@ export function CinematicMotionLayer() {
       timers.forEach((timer) => window.clearTimeout(timer));
     };
   }, [reducedMotion]);
+
+  const activeTransition = transitionPresets[transitionName];
 
   return (
     <>
@@ -77,7 +97,15 @@ export function CinematicMotionLayer() {
 
       <AnimatePresence>
         {transitioning && (
-          <motion.div className="page-transition" initial={{ clipPath: 'circle(0% at 50% 50%)' }} animate={{ clipPath: 'circle(78% at 50% 50%)' }} exit={{ clipPath: 'circle(0% at 50% 50%)' }} transition={{ duration: .38, ease: [0.76, 0, 0.24, 1] }} aria-hidden="true" />
+          <motion.div
+            key={transitionName}
+            className={`page-transition page-transition--${transitionName}`}
+            initial={activeTransition.initial}
+            animate={activeTransition.animate}
+            exit={activeTransition.exit}
+            transition={{ duration: .42, ease: [0.76, 0, 0.24, 1] }}
+            aria-hidden="true"
+          />
         )}
       </AnimatePresence>
     </>
