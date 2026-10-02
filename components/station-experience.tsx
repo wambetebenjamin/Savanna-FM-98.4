@@ -60,7 +60,43 @@ const navigation = [
   { label: 'News', href: '#news' },
   { label: 'Podcasts', href: '#podcasts' },
   { label: 'Events', href: '#events' },
-  { label: 'Advertise', href: '#advertise' },
+  { label: 'Rates', href: '#rate-card' },
+];
+
+const ratePlans = [
+  {
+    name: 'Radio Spot',
+    price: 'KES 5,000',
+    cadence: 'starting rate',
+    description: 'A 30 second campaign spot placed in a selected daypart.',
+    features: ['Professional scheduling', 'One selected daypart', 'Campaign confirmation'],
+    icon: Radio,
+  },
+  {
+    name: 'Live Impact',
+    price: 'KES 15,000',
+    cadence: 'per activation',
+    description: 'A presenter led live read supported by a 60 second radio spot.',
+    features: ['Presenter live read', '60 second radio spot', 'Prime show placement'],
+    icon: Mic,
+    featured: true,
+  },
+  {
+    name: 'Show Partner',
+    price: 'KES 85,000',
+    cadence: 'starting weekly',
+    description: 'Own a recurring show moment and build meaningful frequency.',
+    features: ['Show naming mentions', 'Daily brand credits', 'Digital support'],
+    icon: Headphones,
+  },
+  {
+    name: 'Event and 360',
+    price: 'Custom',
+    cadence: 'built for your brief',
+    description: 'Radio, social, events and custom production in one campaign.',
+    features: ['Campaign strategy', 'On ground activation', 'Custom media mix'],
+    icon: CalendarDays,
+  },
 ];
 
 const waveformHeights = Array.from({ length: 52 }, (_, index) => 18 + ((index * 29 + 7) % 82));
@@ -530,6 +566,7 @@ export default function StationExperience() {
               </div>
               <span className="hero__listen-wave"><Waveform compact animated /></span>
             </div>
+            <a className="hero-business-cta" href="#rate-card"><Radio size={15} /><span><strong>Build your audience with Savanna</strong><small>View advertising rates</small></span><ArrowRight size={15} /></a>
           </div>
 
           <div className="hero-visual" aria-label="Savanna FM on air presenter">
@@ -598,6 +635,7 @@ export default function StationExperience() {
           ))}
         </div>
         <div className="schedule-note"><span className="schedule-note__dot" /> Nairobi time · EAT (UTC+3) <span className="schedule-note__line" /> <span>Missed a show? Catch it in Podcasts.</span><a href="#podcasts">Go to replay <ArrowRight size={14} /></a></div>
+        <a className="section-campaign-cta" href="#rate-card"><span className="section-campaign-cta__icon"><Radio size={18} /></span><span><strong>Want your brand in this hour?</strong><small>Sponsor a show or book a radio spot</small></span><span>See rates <ArrowRight size={15} /></span></a>
       </section>
 
       <section className="section section--presenters" id="presenters">
@@ -688,7 +726,7 @@ export default function StationExperience() {
               </Reveal>
             ))}
           </div>
-          <div className="podcast-cta"><span><Headphones size={16} /> FROM THE STUDIO TO YOUR POCKET</span><a href="#newsletter">Never miss an episode <ArrowRight size={16} /></a></div>
+          <div className="podcast-cta"><span><Headphones size={16} /> FROM THE STUDIO TO YOUR POCKET</span><div><a href="#newsletter">Never miss an episode <ArrowRight size={16} /></a><a className="podcast-cta__sponsor" href="#rate-card">Sponsor a podcast <ArrowUpRight size={16} /></a></div></div>
         </div>
       </section>
 
@@ -755,7 +793,7 @@ export default function StationExperience() {
               </Reveal>
             ))}
           </div>
-          <div className="events-note">WE’LL SAVE YOU A SPOT.</div>
+          <div className="events-note"><span>WE’LL SAVE YOU A SPOT.</span><a href="#rate-card">Put your brand at the next event <ArrowUpRight size={15} /></a></div>
         </div>
       </section>
 
@@ -769,8 +807,8 @@ export default function StationExperience() {
             <h2>Your brand,<br />in the <em>right frequency.</em></h2>
             <p>Bring your business into the conversation. Radio, digital and live events that make a connection that travels.</p>
             <div className="advertise__buttons">
-              <a className="button button--light" href="/savanna-media-kit.txt" download><span>Download rate card</span><ArrowDown size={16} /></a>
-              <a className="button button--outline" href={`${whatsappBase}?text=${encodeURIComponent('Hello! I would like to advertise with Savanna FM 98.4.')}`} target="_blank" rel="noreferrer"><span>Talk to our team</span><ArrowUpRight size={16} /></a>
+              <a className="button button--light" href="#rate-card"><span>View rates and packages</span><ArrowDown size={16} /></a>
+              <a className="button button--outline" href={`${whatsappBase}?text=${encodeURIComponent('Hello! I would like to advertise with Savanna FM 98.4.')}`} target="_blank" rel="noreferrer"><span>Get a campaign quote</span><ArrowUpRight size={16} /></a>
             </div>
             <span className="advertise__contact"><Mail size={13} /> partnerships@savannafm.co.ke</span>
           </Reveal>
@@ -783,15 +821,51 @@ export default function StationExperience() {
         </div>
       </section>
 
+      <section className="section rate-card" id="rate-card">
+        <SectionBackdrop src="/images/bg-neon-microphone.jpg" position="center center" />
+        <div className="page-shell">
+          <div className="rate-card__heading">
+            <div>
+              <Eyebrow number="08">ADVERTISING RATE CARD</Eyebrow>
+              <h2>Put your brand <em>on the frequency.</em></h2>
+            </div>
+            <div className="rate-card__intro">
+              <p>Clear starting rates for radio, live reads, show partnerships and complete campaigns.</p>
+              <a href={`${whatsappBase}?text=${encodeURIComponent('Hello! Please help me choose a Savanna FM advertising package.')}`} target="_blank" rel="noreferrer">Help me choose <ArrowUpRight size={16} /></a>
+            </div>
+          </div>
+          <div className="rate-grid">
+            {ratePlans.map(({ name, price, cadence, description, features, icon: Icon, featured }) => (
+              <article className={`rate-plan ${featured ? 'rate-plan--featured' : ''}`} key={name}>
+                {featured && <span className="rate-plan__popular">MOST POPULAR</span>}
+                <span className="rate-plan__icon"><Icon size={20} /></span>
+                <h3>{name}</h3>
+                <div className="rate-plan__price"><strong>{price}</strong><small>{cadence}</small></div>
+                <p>{description}</p>
+                <ul>{features.map((feature) => <li key={feature}><Check size={14} /> {feature}</li>)}</ul>
+                <a href={`${whatsappBase}?text=${encodeURIComponent(`Hello! I am interested in the ${name} advertising package on Savanna FM 98.4.`)}`} target="_blank" rel="noreferrer">Choose this package <ArrowUpRight size={15} /></a>
+              </article>
+            ))}
+          </div>
+          <div className="rate-card__footer">
+            <p>Rates are indicative starting prices. Final pricing, production and inventory are confirmed in writing.</p>
+            <div>
+              <a className="button button--orange" href={`${whatsappBase}?text=${encodeURIComponent('Hello! I would like a custom advertising proposal from Savanna FM 98.4.')}`} target="_blank" rel="noreferrer">Request a custom proposal <Send size={16} /></a>
+              <a className="button rate-card__download" href="/savanna-media-kit.txt" download>Download media kit <ArrowDown size={16} /></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="section section--social page-shell" id="social">
         <SectionBackdrop src="/images/listener-headphones.jpg" position="80% center" />
         <Reveal>
           <div className="section-heading section-heading--split">
             <div>
-              <Eyebrow number="08">OUT IN THE WORLD</Eyebrow>
+              <Eyebrow number="09">OUT IN THE WORLD</Eyebrow>
               <h2>Join the <em>conversation.</em></h2>
             </div>
-            <div className="section-heading__aside"><p>From the booth to the timeline. Tag your moment with <strong>#SavannaOnAir</strong>.</p><a className="text-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">Follow along <ArrowUpRight size={16} /></a></div>
+            <div className="section-heading__aside"><p>From the booth to the timeline. Tag your moment with <strong>#SavannaOnAir</strong>.</p><div className="social-heading-links"><a className="text-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">Follow along <ArrowUpRight size={16} /></a><a className="text-link" href="#rate-card">Advertise here <ArrowUpRight size={16} /></a></div></div>
           </div>
         </Reveal>
         <div className="social-layout">
@@ -829,7 +903,7 @@ export default function StationExperience() {
           <div className="site-footer__main">
             <div className="site-footer__brand"><AppLogo /><p>THE SOUND OF HERE.<br />LIVE FROM NAIROBI.</p><span className="footer-frequency">98.4<span> FM</span></span></div>
             <div className="site-footer__column"><span className="site-footer__label">TUNE IN</span><a href="#shows">Shows & schedule</a><a href="#podcasts">Podcasts</a><button type="button" onClick={toggleLive}>Listen live <ArrowUpRight size={13} /></button></div>
-            <div className="site-footer__column"><span className="site-footer__label">SAY HELLO</span><a href="mailto:hello@savannafm.co.ke">hello@savannafm.co.ke</a><a href="mailto:partnerships@savannafm.co.ke">Advertise with us</a><a href="tel:+254112272061">+254 112 272 061</a></div>
+            <div className="site-footer__column"><span className="site-footer__label">SAY HELLO</span><a href="mailto:hello@savannafm.co.ke">hello@savannafm.co.ke</a><a href="#rate-card">View advertising rates</a><a href="tel:+254112272061">+254 112 272 061</a></div>
             <div className="site-footer__column site-footer__social"><span className="site-footer__label">FIND YOUR PEOPLE</span><div><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={16} /></a><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><Facebook size={16} /></a><a href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="YouTube"><Youtube size={17} /></a><a href="https://x.com/" target="_blank" rel="noreferrer" aria-label="X"><span>𝕏</span></a></div><span className="site-footer__location"><MapPin size={13} /> NAIROBI, KENYA</span></div>
           </div>
           <div className="site-footer__bottom"><span>© 2026 SAVANNA FM 98.4 · ALL RIGHTS RESERVED</span><span>MADE FOR THE FREQUENCY OF HERE</span><a href="#home">BACK TO TOP <ArrowUpRight size={13} /></a></div>
