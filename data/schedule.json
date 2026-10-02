@@ -1,10 +1,10 @@
 [
   {
     "id": "morning-drive",
-    "time": "06:00 — 10:00",
+    "time": "06:00 TO 10:00",
     "name": "Wake Up Nairobi",
     "host": "Amani & Kito",
-    "days": "Mon – Fri",
+    "days": "Mon to Fri",
     "description": "Big energy, fresh Kenyan music, and the conversations starting your city.",
     "tag": "MORNING DRIVE",
     "image": "/images/voice-headwrap.jpg",
@@ -12,10 +12,10 @@
   },
   {
     "id": "midday-mix",
-    "time": "10:00 — 14:00",
+    "time": "10:00 TO 14:00",
     "name": "The Midday Mix",
     "host": "Nia Wambui",
-    "days": "Mon – Fri",
+    "days": "Mon to Fri",
     "description": "Your desk-side soundtrack: new drops, good stories, zero skips.",
     "tag": "MUSIC + CULTURE",
     "image": "/images/voice-studio-female.jpg",
@@ -23,10 +23,10 @@
   },
   {
     "id": "evening-rush",
-    "time": "16:00 — 20:00",
+    "time": "16:00 TO 20:00",
     "name": "The Evening Rush",
     "host": "Musa K.",
-    "days": "Mon – Fri",
+    "days": "Mon to Fri",
     "description": "The drive home, decoded. Nairobi updates with a beat behind them.",
     "tag": "NEWS + DRIVE",
     "image": "/images/voice-studio-male.jpg",
@@ -34,7 +34,7 @@
   },
   {
     "id": "late-night",
-    "time": "20:00 — 00:00",
+    "time": "20:00 TO 00:00",
     "name": "After Hours",
     "host": "DJ Soko",
     "days": "Every night",

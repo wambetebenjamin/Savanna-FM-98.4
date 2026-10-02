@@ -8,7 +8,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://savannafm.co.ke';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Savanna FM 98.4 — The Heartbeat of East Africa',
+    default: 'Savanna FM 98.4 | The Heartbeat of East Africa',
     template: '%s | Savanna FM 98.4',
   },
   description: 'Your city. Your sound. Your station. Listen live to Savanna FM 98.4, Nairobi’s home for Kenyan music, culture, news, sport, and conversations that move East Africa.',
@@ -20,14 +20,14 @@ export const metadata: Metadata = {
     type: 'website',
     url: '/',
     siteName: 'Savanna FM 98.4',
-    title: 'Savanna FM 98.4 — The Heartbeat of East Africa',
+    title: 'Savanna FM 98.4 | The Heartbeat of East Africa',
     description: 'Big Kenyan music, real conversations, and the city in every frequency. Live from Nairobi.',
     locale: 'en_KE',
     images: [{ url: '/images/nairobi-crowd.jpg', width: 1600, height: 900, alt: 'Live music crowd under the lights' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Savanna FM 98.4 — The Heartbeat of East Africa',
+    title: 'Savanna FM 98.4 | The Heartbeat of East Africa',
     description: 'Listen live from Nairobi. Your city. Your sound. Your station.',
     images: ['/images/nairobi-crowd.jpg'],
   },

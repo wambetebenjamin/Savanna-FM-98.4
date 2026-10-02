@@ -384,7 +384,7 @@ export default function StationExperience() {
         if (whatsappTab) whatsappTab.location.href = whatsappUrl;
         else window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
         setRequestState('sent');
-        showToast('Saved for the team — finish by sending your WhatsApp message.');
+        showToast('Saved for the team. Finish by sending your WhatsApp message.');
       }
     } catch {
       if (whatsappTab) whatsappTab.location.href = whatsappUrl;
@@ -483,7 +483,7 @@ export default function StationExperience() {
               THE HEARTBEAT<br />
               OF <span>EAST AFRICA.</span>
             </motion.h1>
-            <p className="hero__intro">Your city. Your sound. Your station.<br /><strong>Savanna FM 98.4</strong> — live from Nairobi.</p>
+            <p className="hero__intro">Your city. Your sound. Your station.<br /><strong>Savanna FM 98.4</strong>, live from Nairobi.</p>
             <div className="hero__buttons">
               <button className="button button--orange button--hero" type="button" onClick={toggleLive}>
                 {playing ? <Pause size={17} fill="currentColor" /> : <Play size={17} fill="currentColor" />}
@@ -665,7 +665,7 @@ export default function StationExperience() {
               <h2>Ten tracks.<br /><em>One heartbeat.</em></h2>
             </div>
             <div className="section-heading__aside">
-              <p>The tracks we cannot stop playing — selected by our music team and the people who listen.</p>
+              <p>The tracks we cannot stop playing, selected by our music team and the people who listen.</p>
               <span className="chart-date"><span className="chart-date__dot" /> WEEK 40 <i /> OCT 2026</span>
             </div>
           </div>
@@ -702,7 +702,7 @@ export default function StationExperience() {
                 <h2>Good sound.<br /><em>Better company.</em></h2>
               </div>
               <div className="section-heading__aside">
-                <p>From the airwaves to the dance floor — pull up and be part of the story.</p>
+                <p>From the airwaves to the dance floor. Pull up and be part of the story.</p>
                 <a className="text-link" href="#advertise">Partner on an event <ArrowUpRight size={16} /></a>
               </div>
             </div>
@@ -727,7 +727,7 @@ export default function StationExperience() {
           <Reveal className="advertise__copy">
             <Eyebrow number="07">GOOD BRANDS. GOOD ENERGY.</Eyebrow>
             <h2>Your brand,<br />in the <em>right frequency.</em></h2>
-            <p>Bring your business into the conversation. Radio, digital, live events — make a connection that travels.</p>
+            <p>Bring your business into the conversation. Radio, digital and live events that make a connection that travels.</p>
             <div className="advertise__buttons">
               <a className="button button--light" href="/savanna-media-kit.txt" download><span>Download rate card</span><ArrowDown size={16} /></a>
               <a className="button button--outline" href={`${whatsappBase}?text=${encodeURIComponent('Hello! I would like to advertise with Savanna FM 98.4.')}`} target="_blank" rel="noreferrer"><span>Talk to our team</span><ArrowUpRight size={16} /></a>
@@ -750,7 +750,7 @@ export default function StationExperience() {
               <Eyebrow number="08">OUT IN THE WORLD</Eyebrow>
               <h2>Join the<br /><em>conversation.</em></h2>
             </div>
-            <div className="section-heading__aside"><p>From the booth to the timeline — tag your moment with <strong>#SavannaOnAir</strong>.</p><a className="text-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">Follow along <ArrowUpRight size={16} /></a></div>
+            <div className="section-heading__aside"><p>From the booth to the timeline. Tag your moment with <strong>#SavannaOnAir</strong>.</p><a className="text-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">Follow along <ArrowUpRight size={16} /></a></div>
           </div>
         </Reveal>
         <div className="social-layout">
