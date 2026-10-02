@@ -1,5 +1,5 @@
-import StationDirectoryExperience from '../components/station-directory-experience';
+import StationExperience from '../components/station-experience';
 
 export default function HomePage() {
-  return <StationDirectoryExperience />;
+  return <StationExperience />;
 }
